@@ -1,0 +1,121 @@
+{
+  "id": "fe69a759-0caf-4242-8333-7eae2a5185a5",
+  "name": "xiaoHeXian_APP",
+  "values": [
+    {
+      "value": "qingyu",
+      "key": "username",
+      "enabled": true
+    },
+    {
+      "value": "111111",
+      "key": "password",
+      "enabled": true
+    },
+    {
+      "value": "102386",
+      "key": "merchantCode",
+      "enabled": true
+    },
+    {
+      "value": "18621902561",
+      "key": "userphone",
+      "enabled": true
+    },
+    {
+      "value": 174,
+      "key": "OneLevelCategoryId",
+      "enabled": true
+    },
+    {
+      "value": 175,
+      "key": "SecondLevelCategoryId",
+      "enabled": true
+    },
+    {
+      "value": 84,
+      "key": "brandId",
+      "enabled": true
+    },
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "value": "224",
+      "key": "productCategoryId",
+      "enabled": true
+    },
+    {
+      "value": 10755,
+      "key": "skuId_buddleGood",
+      "enabled": true
+    },
+    {
+      "value": 10754,
+      "key": "skuId_GoodwithoutBarcode",
+      "enabled": true
+    },
+    {
+      "value": 10753,
+      "key": "skuId_GoodwithBarcode",
+      "enabled": true
+    },
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "value": "y001",
+      "key": "shopkeeper",
+      "enabled": true
+    },
+    {
+      "value": "variable_value",
+      "key": "variable_key",
+      "enabled": true
+    },
+    {
+      "value": "KKLo3ZpdUkmBvifVRWGXOU/yW6uzhp5kqHxe8BZA6yZv/K5deyJLlm8bL70fGTmt",
+      "key": "accessToken",
+      "enabled": true
+    },
+    {
+      "value": "104ce1cd6d00ba6770d3b5fb5324a432",
+      "key": "refreshToken",
+      "enabled": true
+    },
+    {
+      "value": 105,
+      "key": "userId",
+      "enabled": true
+    },
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "value": "http://gw3.ci.heyean.com/",
+      "key": "URL",
+      "enabled": true
+    },
+    {
+      "value": "000051",
+      "key": "storeCode",
+      "enabled": true
+    },
+    {
+      "value": 196,
+      "key": "shopSkuId",
+      "enabled": true
+    },
+    {
+      "value": 192,
+      "key": "receiptId",
+      "enabled": true
+    }
+  ],
+  "_postman_variable_scope": "environment",
+  "_postman_exported_at": "2018-08-31T08:04:54.782Z",
+  "_postman_exported_using": "Postman/6.2.5"
+}
