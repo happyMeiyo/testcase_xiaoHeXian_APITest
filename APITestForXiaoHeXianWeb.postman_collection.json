@@ -1,0 +1,5171 @@
+{
+	"info": {
+		"_postman_id": "1ab41b7f-7e07-4c49-839e-b78a8c3fe51f",
+		"name": "APITestForXiaoHeXianWeb",
+		"description": "小禾苗的API测试，Web端",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "admin",
+			"item": [
+				{
+					"name": "merchantLoginSuccessByCode",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "eb470ec9-6f92-4e51-8b75-4654bb059e61",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"merchantLoginSuccess\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.merchantCode).to.eql(pm.environment.get(\"merchantCode\"));",
+									"});",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=UTF-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								},
+								{
+									"key": "merchantCode",
+									"value": "{{merchantCode}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}admin/passport/login",
+							"host": [
+								"{{URL}}admin"
+							],
+							"path": [
+								"passport",
+								"login"
+							]
+						},
+						"description": "商户成功登录"
+					},
+					"response": []
+				},
+				{
+					"name": "merchantLoginSuccessByPhone",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"merchantLoginSuccess\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.userPhone).to.eql(pm.environment.get(\"userphone\"));",
+									"});",
+									"",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=UTF-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "{{userphone}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								},
+								{
+									"key": "merchantCode",
+									"value": "{{merchantCode}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}admin/passport/login",
+							"host": [
+								"{{URL}}admin"
+							],
+							"path": [
+								"passport",
+								"login"
+							]
+						},
+						"description": "商户成功登录"
+					},
+					"response": []
+				},
+				{
+					"name": "merchantLoginFail_merchantCodeNull",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"merchantLoginSuccess\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.errorCode).to.eql(\"MERCHANT_CODE_EMPTY\");",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=UTF-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}admin/passport/login?username={{username}}&password={{password}}&merchantCode=",
+							"host": [
+								"{{URL}}admin"
+							],
+							"path": [
+								"passport",
+								"login"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "{{username}}"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}"
+								},
+								{
+									"key": "merchantCode",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "merchantLoginFail_usernameNull",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"merchantLoginSuccess\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.eql(\"Missing credentials\");",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=UTF-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}admin/passport/login?username=&password={{password}}&merchantCode={{merchantCode}}",
+							"host": [
+								"{{URL}}admin"
+							],
+							"path": [
+								"passport",
+								"login"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": ""
+								},
+								{
+									"key": "password",
+									"value": "{{password}}"
+								},
+								{
+									"key": "merchantCode",
+									"value": "{{merchantCode}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "merchantLoginFail_passwordNull",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"merchantLoginSuccess\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.eql(\"Missing credentials\");",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=UTF-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}admin/passport/login?username={{username}}&password=&merchantCode={{merchantCode}}",
+							"host": [
+								"{{URL}}admin"
+							],
+							"path": [
+								"passport",
+								"login"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "{{username}}"
+								},
+								{
+									"key": "password",
+									"value": ""
+								},
+								{
+									"key": "merchantCode",
+									"value": "{{merchantCode}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "merchantLoginFail_passwordWrong",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e647d5f7-327d-422e-8acd-7ccdb39319e8",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"merchantLoginSuccess\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.errorCode).to.eql(\"USER_LOGIN_PWD_ERROR\");",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=UTF-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}admin/passport/login?username={{username}}&password=123456&merchantCode={{merchantCode}}",
+							"host": [
+								"{{URL}}admin"
+							],
+							"path": [
+								"passport",
+								"login"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "{{username}}"
+								},
+								{
+									"key": "password",
+									"value": "123456"
+								},
+								{
+									"key": "merchantCode",
+									"value": "{{merchantCode}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "merchantLoginFail_usernameWrong",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "904c6879-452b-4866-8647-eb4e1d16175e",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"merchantLoginSuccess\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.errorCode).to.eql(\"USER_MERCHANT_USER_CODE_ERROR\");",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=UTF-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}admin/passport/login?username=hs002&password={{password}}&merchantCode={{merchantCode}}",
+							"host": [
+								"{{URL}}admin"
+							],
+							"path": [
+								"passport",
+								"login"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "hs002"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}"
+								},
+								{
+									"key": "merchantCode",
+									"value": "{{merchantCode}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "merchantLoginFail_merchantWrong",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f05b4e9e-b8eb-49c3-9a0e-9148a9118ad0",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"merchantLoginSuccess\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.errorCode).to.eql(\"USER_MERCHANT_USER_CODE_ERROR\");",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=UTF-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}admin/passport/login?username={{username}}&password={{password}}&merchantCode=M000002",
+							"host": [
+								"{{URL}}admin"
+							],
+							"path": [
+								"passport",
+								"login"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "{{username}}"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}"
+								},
+								{
+									"key": "merchantCode",
+									"value": "M000002"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "userLoginoutSuccess",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=UTF-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Cookie",
+								"value": "hsSessionId=s%3AnOjhNMU_R1d-3isT2Bn9PTfFK8Qu0EZN.hz%2BGrpsmQdjm2soVLQWXY8AyCXryptpittJnleA4at8; ",
+								"disabled": true
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://gw3.ci.heyean.com/admin/passport/logout",
+							"protocol": "http",
+							"host": [
+								"gw3",
+								"ci",
+								"heyean",
+								"com"
+							],
+							"path": [
+								"admin",
+								"passport",
+								"logout"
+							]
+						},
+						"description": "如果前台不支持 cookie 时, 请传递 sessionId 参数"
+					},
+					"response": []
+				}
+			],
+			"description": "Folder for admin"
+		},
+		{
+			"name": "pcWeb",
+			"item": [
+				{
+					"name": "brand_manage",
+					"item": [
+						{
+							"name": "merchantLoginSuccessByCode",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"merchantLoginSuccess\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.data.merchantCode).to.eql(pm.environment.get(\"merchantCode\"));",
+											"});",
+											"",
+											"",
+											"",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=UTF-8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "text"
+										},
+										{
+											"key": "merchantCode",
+											"value": "{{merchantCode}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}admin/passport/login?",
+									"host": [
+										"{{URL}}admin"
+									],
+									"path": [
+										"passport",
+										"login"
+									]
+								},
+								"description": "商户成功登录"
+							},
+							"response": []
+						},
+						{
+							"name": "createBrandFail_nameNull",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "45e0e1dc-f2e4-4fa3-b3a1-5bc3eab1b02f",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"createBrandFail_nameNull\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+											"});",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "brandName",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/brand/insert",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"brand",
+										"insert"
+									]
+								},
+								"description": "品牌名称为空"
+							},
+							"response": []
+						},
+						{
+							"name": "createBrandFail_nameTooLong",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"merchantLoginSuccess\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+											"});",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "brandName",
+											"value": "我爱你我爱你我爱你我爱你我爱你我爱你我爱你",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/brand/insert",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"brand",
+										"insert"
+									]
+								},
+								"description": "品牌名称过长"
+							},
+							"response": []
+						},
+						{
+							"name": "createBrandSuccess",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "ecbb4d46-1e22-4179-899a-ccdbe6d2d236",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"createBrandSuccess\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.success).to.eql(true);",
+											"});",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "brandName",
+											"value": "苹果2",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/brand/insert",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"brand",
+										"insert"
+									]
+								},
+								"description": "品牌名称过长"
+							},
+							"response": []
+						},
+						{
+							"name": "createBrandFail_nameExist",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "ba88d50c-f2c2-4f85-889a-d2dd9c251087",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"createBrandFail_nameExist\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+											"    pm.expect(jsonData.result.success).to.eql(false);",
+											"});",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "brandName",
+											"value": "苹果2",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/brand/insert",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"brand",
+										"insert"
+									]
+								},
+								"description": "品牌名称已存在"
+							},
+							"response": []
+						},
+						{
+							"name": "getBrandList",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "92e85467-b243-45d3-8c0d-380892fbea17",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"getBrandListSuccess\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    ",
+											"    pm.expect(jsonData.result.success).to.eql(true);",
+											"    ",
+											"    for (var p = 0; p < jsonData.data.length; p++) { ",
+											"    ",
+											"        if((jsonData.data[p].brandName == \"苹果2\")){",
+											"            pm.environment.set(\"brandId\", jsonData.data[p].brandId);",
+											"            break;",
+											"        }",
+											"    }",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "{{URL}}pc/product/brand/list",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"brand",
+										"list"
+									]
+								},
+								"description": "获取品牌列表"
+							},
+							"response": []
+						},
+						{
+							"name": "getBrandListCopy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "ae8f4ed8-4e2e-40e7-951f-d661043c6f32",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"createBrandListSuccess\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.success).to.eql(true);",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=UTF-8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "brandName",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/brand/select",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"brand",
+										"select"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "modifyBrandSuccess",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d780321a-8fab-4ec1-a591-3ad11967a7cb",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"createBrandListSuccess\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.success).to.eql(true);",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "brandId",
+											"value": "{{brandId}}",
+											"type": "text"
+										},
+										{
+											"key": "brandName",
+											"value": "苹果3",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/brand/update",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"brand",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "modifyBrandFail_nameExsit",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b59a472d-f852-4cf1-b5d3-6c6668c30ed6",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"createBrandFail_nameNull\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+											"});",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "brandId",
+											"value": "{{brandId}}",
+											"type": "text"
+										},
+										{
+											"key": "brandName",
+											"value": "品牌1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/brand/update",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"brand",
+										"update"
+									]
+								},
+								"description": "修改品牌失败，品牌名重复"
+							},
+							"response": []
+						},
+						{
+							"name": "modifyBrandFail_nameNull",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "04f2b746-e67f-47c6-a97c-925371a9eb6c",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"createBrandFail_nameNull\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+											"});",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "brandId",
+											"value": "{{brandId}}",
+											"type": "text"
+										},
+										{
+											"key": "brandName",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/brand/update",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"brand",
+										"update"
+									]
+								},
+								"description": "修改品牌，品牌名称为空"
+							},
+							"response": []
+						},
+						{
+							"name": "modifyBrandFail_nameTooLong",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "04f2b746-e67f-47c6-a97c-925371a9eb6c",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"createBrandFail_nameNull\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+											"});",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "brandId",
+											"value": "{{brandId}}",
+											"type": "text"
+										},
+										{
+											"key": "brandName",
+											"value": "我爱你我爱你我爱你我爱你我爱你我爱你我爱你",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/brand/update",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"brand",
+										"update"
+									]
+								},
+								"description": "修改品牌，品牌名称过长"
+							},
+							"response": []
+						},
+						{
+							"name": "deleteBrandFail_idNull",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "a6e1db72-5a9d-4d60-9e88-25ccc41202a3",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"deleteBrandFail_idNull\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+											"});",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=UTF-8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "brandId",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/brand/delete",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"brand",
+										"delete"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deleteBrandSuccess",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "de534185-500b-4f30-aea3-50580a1ec1d9",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"deleteBrandSuccess\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.success).to.eql(true);",
+											"});",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=UTF-8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "brandId",
+											"value": "{{brandId}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/brand/delete",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"brand",
+										"delete"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "品牌管理",
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "category_manage_merchant",
+					"item": [
+						{
+							"name": "merchantLoginSuccessByCode",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"merchantLoginSuccess\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.data.merchantCode).to.eql(pm.environment.get(\"merchantCode\"));",
+											"});",
+											"",
+											"",
+											"",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=UTF-8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "text"
+										},
+										{
+											"key": "merchantCode",
+											"value": "{{merchantCode}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}admin/passport/login?",
+									"host": [
+										"{{URL}}admin"
+									],
+									"path": [
+										"passport",
+										"login"
+									]
+								},
+								"description": "商户成功登录"
+							},
+							"response": []
+						},
+						{
+							"name": "createOneLevelCatagorySuccess",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "0a9110b9-1385-4a87-964d-d89dae20f03c",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"createCatagorySuccess\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.success).to.eql(true);",
+											"});",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "parentId",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "categoryName",
+											"value": "一级类目",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/category/merchant/insert",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"category",
+										"merchant",
+										"insert"
+									]
+								},
+								"description": "创建一级类目成功"
+							},
+							"response": []
+						},
+						{
+							"name": "createCatagoryFail_catagoryExsit",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "76cd1f97-3366-4817-bebd-ea3d5b38f88a",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"createCatagoryFail_catagoryExsit\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+											"    pm.expect(jsonData.result.success).to.eql(false);",
+											"});",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "parentId",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "categoryName",
+											"value": "一级类目",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/category/merchant/insert",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"category",
+										"merchant",
+										"insert"
+									]
+								},
+								"description": "类目已存在"
+							},
+							"response": []
+						},
+						{
+							"name": "createCatagoryFail_catagoryNull",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"createCatagoryFail_catagoryExsit\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+											"    pm.expect(jsonData.result.success).to.eql(false);",
+											"});",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "parentId",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "categoryName",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/category/merchant/insert",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"category",
+										"merchant",
+										"insert"
+									]
+								},
+								"description": "类目为空"
+							},
+							"response": []
+						},
+						{
+							"name": "createCatagoryFail_catagoryTooLong",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"createCatagoryFail_catagoryExsit\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+											"    pm.expect(jsonData.result.success).to.eql(false);",
+											"});",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "parentId",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "categoryName",
+											"value": "我爱你我爱你我爱你我爱",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/category/merchant/insert",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"category",
+										"merchant",
+										"insert"
+									]
+								},
+								"description": "类目过长"
+							},
+							"response": []
+						},
+						{
+							"name": "getOneLevelCatagorySuccess",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "a58ba8dd-55d0-4a95-84e7-0d954226d847",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"getCatagoryOfMerchantSuccess\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    ",
+											"    for (var p = 0; p < jsonData.data.length; p++) { ",
+											"    ",
+											"        if((jsonData.data[p].categoryType == \"NONE_CHILD\") && (jsonData.data[p].categoryName == \"一级类目\")){",
+											"            pm.environment.set(\"OneLevelCategoryId\", jsonData.data[p].productCategoryId);",
+											"            break;",
+											"        }",
+											"    }",
+											"    ",
+											"    pm.expect(jsonData.result.success).to.eql(true);",
+											"});",
+											"",
+											"",
+											"",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=UTF-8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/category/merchant/list",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"category",
+										"merchant",
+										"list"
+									]
+								},
+								"description": "获取商户的类目列表，并获得无商品的一级类目"
+							},
+							"response": []
+						},
+						{
+							"name": "createSecondLevelCatagorySuccess",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"createCatagorySuccess\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.success).to.eql(true);",
+											"});",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "parentId",
+											"value": "{{OneLevelCategoryId}}",
+											"type": "text"
+										},
+										{
+											"key": "categoryName",
+											"value": "二级类目",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/category/merchant/insert",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"category",
+										"merchant",
+										"insert"
+									]
+								},
+								"description": "创建二级类目成功"
+							},
+							"response": []
+						},
+						{
+							"name": "getSecondLevelCatagorySuccess",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"getCatagoryOfMerchantSuccess\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    ",
+											"    pm.expect(jsonData.result.success).to.eql(true);",
+											"    ",
+											"    for (var p = 0; p < jsonData.data.length; p++) { ",
+											"    ",
+											"        if((jsonData.data[p].categoryType == \"ONLY_CATEGORY\") && (jsonData.data[p].categoryName == \"一级类目\")){",
+											"            pm.environment.set(\"SecondLevelCategoryId\", jsonData.data[p].childCategoryList[0].productCategoryId);",
+											"            break;",
+											"        }",
+											"    }",
+											"});",
+											"",
+											"",
+											"",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=UTF-8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/category/merchant/list",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"category",
+										"merchant",
+										"list"
+									]
+								},
+								"description": "获取商户的类目列表，并获得无商品的二级类目"
+							},
+							"response": []
+						},
+						{
+							"name": "modifyCatagoryFail_NameTooLong",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"modifyOneLevelCatagoryFail_NameTooLong\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+											"    pm.expect(jsonData.result.success).to.eql(false);",
+											"});",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "productCategoryId",
+											"value": "{{OneLevelCategoryId}}",
+											"type": "text"
+										},
+										{
+											"key": "categoryName",
+											"value": "我爱你我爱你我爱你我爱",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/category/merchant/update",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"category",
+										"merchant",
+										"update"
+									]
+								},
+								"description": "修改一级类目失败，名称太长"
+							},
+							"response": []
+						},
+						{
+							"name": "modifyCatagoryFail_NameNull",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"modifySecondLevelCatagoryFail_NameNull\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+											"    pm.expect(jsonData.result.success).to.eql(false);",
+											"});",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "productCategoryId",
+											"value": "{{SecondLevelCategoryId}}",
+											"type": "text"
+										},
+										{
+											"key": "categoryName",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/category/merchant/update",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"category",
+										"merchant",
+										"update"
+									]
+								},
+								"description": "修改二级类目，名字为空"
+							},
+							"response": []
+						},
+						{
+							"name": "getCatagorySuccess_ByType",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"getCatagorySuccess_ByType\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    ",
+											"    var is_include = false;",
+											"    ",
+											"    pm.expect(jsonData.result.success).to.eql(true);",
+											"    ",
+											"    for (var p = 0; p < jsonData.data.length; p++) { ",
+											"    ",
+											"        if((jsonData.data[p].value == pm.environment.get(\"OneLevelCategoryId\"))){",
+											"            is_include = True;",
+											"            break;",
+											"        }",
+											"    }",
+											"    ",
+											"    pm.expect(is_include).to.eql(false);",
+											"});",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=UTF-8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "categoryType",
+											"value": "ONLY_PRODUCT",
+											"type": "text"
+										},
+										{
+											"key": "categoryId",
+											"value": "{{OneLevelCategoryId}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/category/merchant/select",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"category",
+										"merchant",
+										"select"
+									]
+								},
+								"description": "根据categoryType获取列表，排除分类categoryId"
+							},
+							"response": []
+						},
+						{
+							"name": "getCatagoryOfPlatformSuccess",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"getCatagoryOfMerchantSuccess\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    ",
+											"    pm.expect(jsonData.result.success).to.eql(true);",
+											"});",
+											"",
+											"",
+											"",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=UTF-8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/category/platform/select",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"category",
+										"platform",
+										"select"
+									]
+								},
+								"description": "获取平台分类"
+							},
+							"response": []
+						},
+						{
+							"name": "getCatagoryListSuccess_ByStoreCode",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "storeCode",
+											"value": "000076",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/category/store/list",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"category",
+										"store",
+										"list"
+									]
+								},
+								"description": "根据storecode得到分类列表"
+							},
+							"response": []
+						},
+						{
+							"name": "onSaleCatagoryOfStoreFail_isOnlineNull",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"createCatagoryFail_catagoryExsit\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+											"    pm.expect(jsonData.result.success).to.eql(false);",
+											"});",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "isOnline",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "xrefId",
+											"value": "{{OneLevelCategoryId}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/category/store/online",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"category",
+										"store",
+										"online"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "onSaleCatagoryOfStoreFail_isOnlineNull Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"createCatagoryFail_catagoryExsit\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+											"    pm.expect(jsonData.result.success).to.eql(false);",
+											"});",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "isOnline",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "xrefId",
+											"value": "{{OneLevelCategoryId}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/category/store/online",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"category",
+										"store",
+										"online"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "unSaleCatagoryOfStoreFail_IdNull",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "84e72bf2-b40a-4d1f-93c4-e78acef5c165",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"unSaleCatagoryOfStoreFail_IdNull\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+											"});",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "isOnline",
+											"value": "Y",
+											"type": "text"
+										},
+										{
+											"key": "productCategoryId",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "storeCode",
+											"value": "0076",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/category/store/online",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"category",
+										"store",
+										"online"
+									]
+								},
+								"description": "下架类目，id为Null"
+							},
+							"response": []
+						},
+						{
+							"name": "unSaleCatagoryOfStoreFail_storeNull",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c9d697f2-ca55-4095-a20d-89b616ea0307",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"unSaleCatagoryOfStoreSuccess\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+											"});",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "isOnline",
+											"value": "Y",
+											"type": "text"
+										},
+										{
+											"key": "productCategoryId",
+											"value": "{{SecondLevelCategoryId}}",
+											"type": "text"
+										},
+										{
+											"key": "storeCode",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/category/store/online",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"category",
+										"store",
+										"online"
+									]
+								},
+								"description": "下架类目，门店编号为空"
+							},
+							"response": []
+						},
+						{
+							"name": "unSaleCatagoryOfStoreSuccess",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "3c9f578e-9d52-412d-a3f9-e5c329018e48",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"unSaleCatagoryOfStoreSuccess\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.success).to.eql(true);",
+											"});",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "isOnline",
+											"value": "N",
+											"type": "text"
+										},
+										{
+											"key": "productCategoryId",
+											"value": "{{SecondLevelCategoryId}}",
+											"type": "text"
+										},
+										{
+											"key": "storeCode",
+											"value": "000076",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/category/store/online",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"category",
+										"store",
+										"online"
+									]
+								},
+								"description": "下架类目"
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteCatagoryFail_catagoryIdNull",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "43cb648e-9ea9-4714-bd36-ec91524d484d",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"DeleteCatagoryFail_catagoryIdNull\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+											"    pm.expect(jsonData.result.success).to.eql(false);",
+											"});",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "productCategoryId",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "newParentId",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/category/merchant/delete",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"category",
+										"merchant",
+										"delete"
+									]
+								},
+								"description": "删除类目失败，catagoryId为空"
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteCatagoryFail_hasCatagory",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "544d8376-ebac-4562-8be0-b665443efe69",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"onSaleCatagoryOfStoreFail_xrefidNull\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+											"    pm.expect(jsonData.result.success).to.eql(false);",
+											"});",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "productCategoryId",
+											"value": "{{OneLevelCategoryId}}",
+											"type": "text"
+										},
+										{
+											"key": "newParentId",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/category/merchant/delete",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"category",
+										"merchant",
+										"delete"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deleteSecnodCatagorySuccess_WithoutGood",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"onSaleCatagoryOfStoreFail_xrefidNull\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.success).to.eql(true);",
+											"});",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "productCategoryId",
+											"value": "{{SecondLevelCategoryId}}",
+											"type": "text"
+										},
+										{
+											"key": "newParentId",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/category/merchant/delete",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"category",
+										"merchant",
+										"delete"
+									]
+								},
+								"description": "删除类目失败，类目Id为NUll"
+							},
+							"response": []
+						},
+						{
+							"name": "deleteCatagoryFail_WithDeleted",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "9ec99b3c-3ccf-46da-91c0-91e1240b26a7",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"deleteCatagoryFail_WithDeleted\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.success).to.eql(false);",
+											"});",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "productCategoryId",
+											"value": "{{SecondLevelCategoryId}}",
+											"type": "text"
+										},
+										{
+											"key": "newParentId",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/category/merchant/delete",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"category",
+										"merchant",
+										"delete"
+									]
+								},
+								"description": "删除类目失败，分类已删除"
+							},
+							"response": []
+						},
+						{
+							"name": "deleteOneCatagorySuccess_WithoutSon",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "1f5aa696-4a03-46d1-8445-f0f330dae038",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"deleteOneCatagorySuccess_WithoutSon\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.success).to.eql(true);",
+											"});",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "productCategoryId",
+											"value": "{{OneLevelCategoryId}}",
+											"type": "text"
+										},
+										{
+											"key": "newParentId",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/category/merchant/delete",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"category",
+										"merchant",
+										"delete"
+									]
+								},
+								"description": "删除类目成功，叶子分类"
+							},
+							"response": []
+						}
+					],
+					"description": "商户分类管理",
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "good_manage_merchant",
+					"item": [
+						{
+							"name": "merchantLoginSuccessByCode",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"merchantLoginSuccess\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.data.merchantCode).to.eql(pm.environment.get(\"merchantCode\"));",
+											"});",
+											"",
+											"",
+											"",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=UTF-8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "text"
+										},
+										{
+											"key": "merchantCode",
+											"value": "{{merchantCode}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}admin/passport/login?",
+									"host": [
+										"{{URL}}admin"
+									],
+									"path": [
+										"passport",
+										"login"
+									]
+								},
+								"description": "商户成功登录"
+							},
+							"response": []
+						},
+						{
+							"name": "createGoodFail_BuddleDeleted",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "257fc15a-9146-4114-998b-97f2736d3414",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"createGoodFail_BuddleDeleted\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+											"    pm.expect(jsonData.result.success).to.eql(false);",
+											"});",
+											"",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "isBarcode",
+											"value": "N",
+											"type": "text"
+										},
+										{
+											"key": "productCode",
+											"value": "ZuHe001",
+											"type": "text"
+										},
+										{
+											"key": "productName",
+											"value": "组合哈哈",
+											"type": "text"
+										},
+										{
+											"key": "productBrandId",
+											"value": "76",
+											"type": "text"
+										},
+										{
+											"key": "productOriginIdList[0]",
+											"value": "48717",
+											"type": "text"
+										},
+										{
+											"key": "sku",
+											"value": "200ml",
+											"type": "text"
+										},
+										{
+											"key": "productClassIdList[0]",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "productClassIdList[1]",
+											"value": "16",
+											"type": "text"
+										},
+										{
+											"key": "productClassIdList[2]",
+											"value": "170",
+											"type": "text"
+										},
+										{
+											"key": "productCategoryIdList[0]",
+											"value": "144",
+											"type": "text"
+										},
+										{
+											"key": "productCategoryIdList[1]",
+											"value": "145",
+											"type": "text"
+										},
+										{
+											"key": "productPinyin",
+											"value": "ZHHH",
+											"type": "text"
+										},
+										{
+											"key": "isCombine",
+											"value": "Y",
+											"type": "text"
+										},
+										{
+											"key": "saleUnit",
+											"value": "捆",
+											"type": "text"
+										},
+										{
+											"key": "salePrice",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "profit",
+											"value": "NaN",
+											"type": "text"
+										},
+										{
+											"key": "skuTitle",
+											"value": "阿富汗 品牌1 组合哈哈 200ml",
+											"type": "text"
+										},
+										{
+											"key": "productBundles",
+											"value": "[{\"skuId\":67,\"factor\":\"1\"},{\"skuId\":68,\"factor\":\"1\"}]",
+											"type": "text"
+										},
+										{
+											"key": "mainImageUrl",
+											"value": "product/main/65bdc9903cf85173b12a46daabe0bdf4.jpg",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/merchant/sku/add",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"merchant",
+										"sku",
+										"add"
+									]
+								},
+								"description": "创建商品失败，组合明细中的商品被删除"
+							},
+							"response": []
+						},
+						{
+							"name": "createGoodSuccess_WithBarcode",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4dbaf649-a4c7-4765-9db5-52510467b66d",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"createGoodSuccess_WithBarcode\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.success).to.eql(true);",
+											"});",
+											"",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "isBarcode",
+											"value": "Y",
+											"type": "text"
+										},
+										{
+											"key": "productCode",
+											"value": "shangjiabianma",
+											"type": "text"
+										},
+										{
+											"key": "productName",
+											"value": "书籍",
+											"type": "text"
+										},
+										{
+											"key": "productBrandId",
+											"value": "88",
+											"type": "text"
+										},
+										{
+											"key": "productOriginIdList[0]",
+											"value": "48948",
+											"type": "text"
+										},
+										{
+											"key": "sku",
+											"value": "个",
+											"type": "text"
+										},
+										{
+											"key": "productClassIdList[0]",
+											"value": "733",
+											"type": "text"
+										},
+										{
+											"key": "productClassIdList[1]",
+											"value": "725",
+											"type": "text"
+										},
+										{
+											"key": "productClassIdList[2]",
+											"value": "722",
+											"type": "text"
+										},
+										{
+											"key": "productCategoryIdList[0]",
+											"value": "{{productCategoryId}}",
+											"type": "text"
+										},
+										{
+											"key": "productPinyin",
+											"value": "sj",
+											"type": "text"
+										},
+										{
+											"key": "isCombine",
+											"value": "N",
+											"type": "text"
+										},
+										{
+											"key": "saleUnit",
+											"value": "箱",
+											"type": "text"
+										},
+										{
+											"key": "salePrice",
+											"value": "20000",
+											"type": "text"
+										},
+										{
+											"key": "costPrice",
+											"value": "10000",
+											"type": "text"
+										},
+										{
+											"key": "minSalePrice",
+											"value": "18000",
+											"type": "text"
+										},
+										{
+											"key": "vipPrice",
+											"value": "18500",
+											"type": "text"
+										},
+										{
+											"key": "skuBarcode",
+											"value": "9787508686272",
+											"type": "text"
+										},
+										{
+											"key": "profit",
+											"value": "100",
+											"type": "text"
+										},
+										{
+											"key": "skuTitle",
+											"value": "条码商品",
+											"type": "text"
+										},
+										{
+											"key": "mainImageUrl",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/merchant/sku/add",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"merchant",
+										"sku",
+										"add"
+									]
+								},
+								"description": "创建商品成功，条码商品"
+							},
+							"response": []
+						},
+						{
+							"name": "createGoodSuccess_WithoutBarcode",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "5baee3e1-2aa8-45b0-8dc8-83853bb3349b",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"createGoodSuccess_WithoutBarcode\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.success).to.eql(true);",
+											"});",
+											"",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "isBarcode",
+											"value": "N",
+											"type": "text"
+										},
+										{
+											"key": "productCode",
+											"value": "shangjiabianma001",
+											"type": "text"
+										},
+										{
+											"key": "productName",
+											"value": "酸奶2",
+											"type": "text"
+										},
+										{
+											"key": "productBrandId",
+											"value": "76",
+											"type": "text"
+										},
+										{
+											"key": "productOriginIdList[0]",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "productOriginIdList[1]",
+											"value": "12",
+											"type": "text"
+										},
+										{
+											"key": "productOriginIdList[2]",
+											"value": "151",
+											"type": "text"
+										},
+										{
+											"key": "sku",
+											"value": "1L",
+											"type": "text"
+										},
+										{
+											"key": "productClassIdList[0]",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "productClassIdList[1]",
+											"value": "21",
+											"type": "text"
+										},
+										{
+											"key": "productClassIdList[2]",
+											"value": "238",
+											"type": "text"
+										},
+										{
+											"key": "productCategoryIdList[0]",
+											"value": "{{productCategoryId}}",
+											"type": "text"
+										},
+										{
+											"key": "productPinyin",
+											"value": "SN",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "我该怎么描述你呢\\n这彼岸。。。#",
+											"type": "text"
+										},
+										{
+											"key": "isCombine",
+											"value": "N",
+											"type": "text"
+										},
+										{
+											"key": "saleUnit",
+											"value": "箱",
+											"type": "text"
+										},
+										{
+											"key": "salePrice",
+											"value": "6000",
+											"type": "text"
+										},
+										{
+											"key": "costPrice",
+											"value": "4500",
+											"type": "text"
+										},
+										{
+											"key": "minSalePrice",
+											"value": "5500",
+											"type": "text"
+										},
+										{
+											"key": "vipPrice",
+											"value": "5500",
+											"type": "text"
+										},
+										{
+											"key": "profit",
+											"value": "33.33",
+											"type": "text"
+										},
+										{
+											"key": "skuTitle",
+											"value": "非条码商品",
+											"type": "text"
+										},
+										{
+											"key": "mainImageUrl",
+											"value": "product/main/c2ebaaad8823bcb53aee5beb647afd86.jpg",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/merchant/sku/add",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"merchant",
+										"sku",
+										"add"
+									]
+								},
+								"description": "创建商品成功，无商品条码"
+							},
+							"response": []
+						},
+						{
+							"name": "createGoodSuccess_WithBuddleGood",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "cf4b7842-9967-4f0f-8b02-3edf339cf7df",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"createGoodSuccess_WithBuddleGood\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.success).to.eql(true);",
+											"});",
+											"",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "isBarcode",
+											"value": "N",
+											"type": "text"
+										},
+										{
+											"key": "productCode",
+											"value": "shangjiabianma002",
+											"type": "text"
+										},
+										{
+											"key": "productName",
+											"value": "组合商品",
+											"type": "text"
+										},
+										{
+											"key": "productBrandId",
+											"value": "76",
+											"type": "text"
+										},
+										{
+											"key": "productOriginIdList[0]",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "productOriginIdList[1]",
+											"value": "35",
+											"type": "text"
+										},
+										{
+											"key": "productOriginIdList[2]",
+											"value": "481",
+											"type": "text"
+										},
+										{
+											"key": "sku",
+											"value": "1件",
+											"type": "text"
+										},
+										{
+											"key": "productClassIdList[0]",
+											"value": "10",
+											"type": "text"
+										},
+										{
+											"key": "productClassIdList[1]",
+											"value": "105",
+											"type": "text"
+										},
+										{
+											"key": "productClassIdList[2]",
+											"value": "837",
+											"type": "text"
+										},
+										{
+											"key": "productCategoryIdList[0]",
+											"value": "{{productCategoryId}}",
+											"type": "text"
+										},
+										{
+											"key": "productPinyin",
+											"value": "ZHSP",
+											"type": "text"
+										},
+										{
+											"key": "isCombine",
+											"value": "Y",
+											"type": "text"
+										},
+										{
+											"key": "saleUnit",
+											"value": "个",
+											"type": "text"
+										},
+										{
+											"key": "salePrice",
+											"value": "10088",
+											"type": "text"
+										},
+										{
+											"key": "costPrice",
+											"value": "8800",
+											"type": "text"
+										},
+										{
+											"key": "minSalePrice",
+											"value": "10000",
+											"type": "text"
+										},
+										{
+											"key": "vipPrice",
+											"value": "10000",
+											"type": "text"
+										},
+										{
+											"key": "profit",
+											"value": "14.63",
+											"type": "text"
+										},
+										{
+											"key": "skuTitle",
+											"value": "组合商品",
+											"type": "text"
+										},
+										{
+											"key": "productBundles",
+											"value": "[{\"skuId\":345,\"factor\":\"10\"}]",
+											"type": "text"
+										},
+										{
+											"key": "mainImageUrl",
+											"value": "product/main/1d8098f6c99466122f176a19f0f8ca76.jpg",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/merchant/sku/add",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"merchant",
+										"sku",
+										"add"
+									]
+								},
+								"description": "创建组合商品成功"
+							},
+							"response": []
+						},
+						{
+							"name": "createGoodFail_WithBuddleGoodDeleted",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "27747374-5a1a-4e9d-9c60-b6133370a3a5",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"createGoodFail_BuddleDeleted\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.success).to.eql(false);",
+											"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+											"});",
+											"",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "isBarcode",
+											"value": "N",
+											"type": "text"
+										},
+										{
+											"key": "productCode",
+											"value": "shangjiabianma002",
+											"type": "text"
+										},
+										{
+											"key": "productName",
+											"value": "组合商品",
+											"type": "text"
+										},
+										{
+											"key": "productBrandId",
+											"value": "76",
+											"type": "text"
+										},
+										{
+											"key": "productOriginIdList[0]",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "productOriginIdList[1]",
+											"value": "35",
+											"type": "text"
+										},
+										{
+											"key": "productOriginIdList[2]",
+											"value": "481",
+											"type": "text"
+										},
+										{
+											"key": "sku",
+											"value": "1件",
+											"type": "text"
+										},
+										{
+											"key": "productClassIdList[0]",
+											"value": "10",
+											"type": "text"
+										},
+										{
+											"key": "productClassIdList[1]",
+											"value": "105",
+											"type": "text"
+										},
+										{
+											"key": "productClassIdList[2]",
+											"value": "837",
+											"type": "text"
+										},
+										{
+											"key": "productCategoryIdList[0]",
+											"value": "{{productCategoryId}}",
+											"type": "text"
+										},
+										{
+											"key": "productPinyin",
+											"value": "ZHSP",
+											"type": "text"
+										},
+										{
+											"key": "isCombine",
+											"value": "Y",
+											"type": "text"
+										},
+										{
+											"key": "saleUnit",
+											"value": "个",
+											"type": "text"
+										},
+										{
+											"key": "salePrice",
+											"value": "10088",
+											"type": "text"
+										},
+										{
+											"key": "costPrice",
+											"value": "8800",
+											"type": "text"
+										},
+										{
+											"key": "minSalePrice",
+											"value": "10000",
+											"type": "text"
+										},
+										{
+											"key": "vipPrice",
+											"value": "10000",
+											"type": "text"
+										},
+										{
+											"key": "profit",
+											"value": "14.63",
+											"type": "text"
+										},
+										{
+											"key": "skuTitle",
+											"value": "组合商品",
+											"type": "text"
+										},
+										{
+											"key": "productBundles",
+											"value": "[{\"skuId\":597,\"factor\":\"1\"}]",
+											"type": "text"
+										},
+										{
+											"key": "mainImageUrl",
+											"value": "product/main/1d8098f6c99466122f176a19f0f8ca76.jpg",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/merchant/sku/add",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"merchant",
+										"sku",
+										"add"
+									]
+								},
+								"description": "创建商品失败，被组合商品已删除"
+							},
+							"response": []
+						},
+						{
+							"name": "createGoodFail_productCodeExsit",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "9e1d7f36-7d9c-4e75-b74e-930b17ecb875",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"createGoodFail_productCodeExsit\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+											"    pm.expect(jsonData.result.success).to.eql(false);",
+											"});",
+											"",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "isBarcode",
+											"value": "Y",
+											"type": "text"
+										},
+										{
+											"key": "productCode",
+											"value": "shangjiabianma",
+											"type": "text"
+										},
+										{
+											"key": "productName",
+											"value": "书籍",
+											"type": "text"
+										},
+										{
+											"key": "productBrandId",
+											"value": "88",
+											"type": "text"
+										},
+										{
+											"key": "productOriginIdList[0]",
+											"value": "48948",
+											"type": "text"
+										},
+										{
+											"key": "sku",
+											"value": "个",
+											"type": "text"
+										},
+										{
+											"key": "productClassIdList[0]",
+											"value": "733",
+											"type": "text"
+										},
+										{
+											"key": "productClassIdList[1]",
+											"value": "725",
+											"type": "text"
+										},
+										{
+											"key": "productClassIdList[2]",
+											"value": "722",
+											"type": "text"
+										},
+										{
+											"key": "productCategoryIdList[0]",
+											"value": "{{productCategoryId}}",
+											"type": "text"
+										},
+										{
+											"key": "productPinyin",
+											"value": "sj",
+											"type": "text"
+										},
+										{
+											"key": "isCombine",
+											"value": "N",
+											"type": "text"
+										},
+										{
+											"key": "saleUnit",
+											"value": "箱",
+											"type": "text"
+										},
+										{
+											"key": "salePrice",
+											"value": "20000",
+											"type": "text"
+										},
+										{
+											"key": "costPrice",
+											"value": "10000",
+											"type": "text"
+										},
+										{
+											"key": "minSalePrice",
+											"value": "18000",
+											"type": "text"
+										},
+										{
+											"key": "vipPrice",
+											"value": "18500",
+											"type": "text"
+										},
+										{
+											"key": "skuBarcode",
+											"value": "9787508686273",
+											"type": "text"
+										},
+										{
+											"key": "profit",
+											"value": "100",
+											"type": "text"
+										},
+										{
+											"key": "skuTitle",
+											"value": "南斯拉夫",
+											"type": "text"
+										},
+										{
+											"key": "mainImageUrl",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/merchant/sku/add",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"merchant",
+										"sku",
+										"add"
+									]
+								},
+								"description": "创建商品失败，商家编码重复"
+							},
+							"response": []
+						},
+						{
+							"name": "createGoodFail_skuBarcodeExist",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "5e268c62-c445-4c83-9ade-eef5048ecefc",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"createGoodFail_skuBarcodeExist\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+											"    pm.expect(jsonData.result.success).to.eql(false);",
+											"});",
+											"",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "isBarcode",
+											"value": "Y",
+											"type": "text"
+										},
+										{
+											"key": "productCode",
+											"value": "shuji005",
+											"type": "text"
+										},
+										{
+											"key": "productName",
+											"value": "书籍",
+											"type": "text"
+										},
+										{
+											"key": "productBrandId",
+											"value": "88",
+											"type": "text"
+										},
+										{
+											"key": "productOriginIdList[0]",
+											"value": "48948",
+											"type": "text"
+										},
+										{
+											"key": "sku",
+											"value": "个",
+											"type": "text"
+										},
+										{
+											"key": "productClassIdList[0]",
+											"value": "733",
+											"type": "text"
+										},
+										{
+											"key": "productClassIdList[1]",
+											"value": "725",
+											"type": "text"
+										},
+										{
+											"key": "productClassIdList[2]",
+											"value": "722",
+											"type": "text"
+										},
+										{
+											"key": "productCategoryIdList[0]",
+											"value": "{{productCategoryId}}",
+											"type": "text"
+										},
+										{
+											"key": "productPinyin",
+											"value": "sj",
+											"type": "text"
+										},
+										{
+											"key": "isCombine",
+											"value": "N",
+											"type": "text"
+										},
+										{
+											"key": "saleUnit",
+											"value": "箱",
+											"type": "text"
+										},
+										{
+											"key": "salePrice",
+											"value": "20000",
+											"type": "text"
+										},
+										{
+											"key": "costPrice",
+											"value": "10000",
+											"type": "text"
+										},
+										{
+											"key": "minSalePrice",
+											"value": "18000",
+											"type": "text"
+										},
+										{
+											"key": "vipPrice",
+											"value": "18500",
+											"type": "text"
+										},
+										{
+											"key": "skuBarcode",
+											"value": "9787508686271",
+											"type": "text"
+										},
+										{
+											"key": "profit",
+											"value": "100",
+											"type": "text"
+										},
+										{
+											"key": "skuTitle",
+											"value": "南斯拉夫 中信出品 书籍 个",
+											"type": "text"
+										},
+										{
+											"key": "mainImageUrl",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/merchant/sku/add",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"merchant",
+										"sku",
+										"add"
+									]
+								},
+								"description": "创建商品失败，商品条码已存在"
+							},
+							"response": []
+						},
+						{
+							"name": "createGoodFail_skuTitleExsit",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "88921282-6dc9-4a7b-b22b-754d9a2bb7e0",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"createGoodFail_skuTitleExsit\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+											"    pm.expect(jsonData.result.success).to.eql(false);",
+											"});",
+											"",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "isBarcode",
+											"value": "N",
+											"type": "text"
+										},
+										{
+											"key": "productCode",
+											"value": "shuji005",
+											"type": "text"
+										},
+										{
+											"key": "productName",
+											"value": "书籍",
+											"type": "text"
+										},
+										{
+											"key": "productBrandId",
+											"value": "88",
+											"type": "text"
+										},
+										{
+											"key": "productOriginIdList[0]",
+											"value": "48948",
+											"type": "text"
+										},
+										{
+											"key": "sku",
+											"value": "个",
+											"type": "text"
+										},
+										{
+											"key": "productClassIdList[0]",
+											"value": "733",
+											"type": "text"
+										},
+										{
+											"key": "productClassIdList[1]",
+											"value": "725",
+											"type": "text"
+										},
+										{
+											"key": "productClassIdList[2]",
+											"value": "722",
+											"type": "text"
+										},
+										{
+											"key": "productCategoryIdList[0]",
+											"value": "{{productCategoryId}}",
+											"type": "text"
+										},
+										{
+											"key": "productPinyin",
+											"value": "sj",
+											"type": "text"
+										},
+										{
+											"key": "isCombine",
+											"value": "N",
+											"type": "text"
+										},
+										{
+											"key": "saleUnit",
+											"value": "箱",
+											"type": "text"
+										},
+										{
+											"key": "salePrice",
+											"value": "20000",
+											"type": "text"
+										},
+										{
+											"key": "costPrice",
+											"value": "10000",
+											"type": "text"
+										},
+										{
+											"key": "minSalePrice",
+											"value": "18000",
+											"type": "text"
+										},
+										{
+											"key": "vipPrice",
+											"value": "18500",
+											"type": "text"
+										},
+										{
+											"key": "skuBarcode",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "profit",
+											"value": "100",
+											"type": "text"
+										},
+										{
+											"key": "skuTitle",
+											"value": "条码商品",
+											"type": "text"
+										},
+										{
+											"key": "mainImageUrl",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/merchant/sku/add",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"merchant",
+										"sku",
+										"add"
+									]
+								},
+								"description": "创建商品失败，商品标题已存在"
+							},
+							"response": []
+						},
+						{
+							"name": "searchAllGoodSuccess",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "3f8f7082-6b0b-4e01-8616-376acf674733",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"searchAllGoodSuccess\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.success).to.eql(true);",
+											"    pm.expect(jsonData.data.totalCount).to.eql(5);",
+											"    pm.expect(jsonData.data.totalPage).to.eql(1);",
+											"    ",
+											"    var pageData = jsonData.data.pageData",
+											"    ",
+											"    for (var p = 0; p < pageData.length; p++) { ",
+											"    ",
+											"        if((pageData[p].skuTitle == \"组合商品\")){",
+											"            pm.environment.set(\"skuId_buddleGood\", pageData[p].skuId);",
+											"            continue;",
+											"        }",
+											"        ",
+											"        if((pageData[p].skuTitle == \"非条码商品\")){",
+											"            pm.environment.set(\"skuId_GoodwithoutBarcode\", pageData[p].skuId);",
+											"            continue;",
+											"        }",
+											"        ",
+											"        if((pageData[p].skuTitle == \"条码商品\")){",
+											"            pm.environment.set(\"skuId_GoodwithBarcode\", pageData[p].skuId);",
+											"            continue;",
+											"        }",
+											"    }",
+											"    ",
+											"});",
+											"",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "productClassIdList",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "productCategoryIdList[0]",
+											"value": "{{productCategoryId}}",
+											"type": "text"
+										},
+										{
+											"key": "pageSize",
+											"value": "10",
+											"type": "text"
+										},
+										{
+											"key": "pageNumber",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "query",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "productClassId",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "productCategoryId",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "isCombine",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "sortBy",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "dir",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/merchant/sku/query",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"merchant",
+										"sku",
+										"query"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getDetailOfGoodSuccess",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "575d100b-11e5-4fee-bacf-19a2087e88aa",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"getDetailOfGood\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.success).to.eql(true);",
+											"    pm.expect(jsonData.data.isCombine).to.eql('Y');",
+											"})"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "skuId",
+											"value": "{{skuId_buddleGood}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/merchant/sku/detail",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"merchant",
+										"sku",
+										"detail"
+									]
+								},
+								"description": "获取组合商品的详情"
+							},
+							"response": []
+						},
+						{
+							"name": "deleteGoodwithBuddleGoodsSuccess",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b33da154-64f4-41cc-bc82-62ea2979dadb",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"deleteGoodwithBuddleGoods\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.success).to.eql(true);",
+											"})"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "skuId",
+											"value": "{{skuId_buddleGood}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/merchant/sku/delete",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"merchant",
+										"sku",
+										"delete"
+									]
+								},
+								"description": "删除组合商品"
+							},
+							"response": []
+						},
+						{
+							"name": "deleteGoodwithBarcodeSuccess",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c7b77394-5e51-4bf5-9905-18ca0d0f7ad7",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"deleteGoodwithBarcodeSuccess\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.success).to.eql(true);",
+											"})"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "skuId",
+											"value": "{{skuId_GoodwithBarcode}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/merchant/sku/delete",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"merchant",
+										"sku",
+										"delete"
+									]
+								},
+								"description": "删除条码商品"
+							},
+							"response": []
+						},
+						{
+							"name": "deleteGoodwithoutBarcodeSuccess",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e2675cda-c7e8-48d8-b9d7-606bcaa44fd6",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"deleteGoodwithoutBarcodeSuccess\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.success).to.eql(true);",
+											"})",
+											"",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "skuId",
+											"value": "{{skuId_GoodwithoutBarcode}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/merchant/sku/delete",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"merchant",
+										"sku",
+										"delete"
+									]
+								},
+								"description": "删除非条码商品"
+							},
+							"response": []
+						},
+						{
+							"name": "deleteGoodFail_Repeat",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "2461b60c-c7ea-4d99-8556-4810bc76849b",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"deleteGoodRepeat\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.success).to.eql(false);",
+											"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+											"})"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "skuId",
+											"value": "{{skuId_buddleGood}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/merchant/sku/delete",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"merchant",
+										"sku",
+										"delete"
+									]
+								},
+								"description": "重复删除商品"
+							},
+							"response": []
+						},
+						{
+							"name": "getDetailOfGoodFail_GoodDeleted",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "1b4abc74-33b7-4f1c-a997-005c44337404",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"getDetailOfGoodFail_GoodDeleted\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.success).to.eql(false);",
+											"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+											"})"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "skuId",
+											"value": "{{skuId_buddleGood}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/merchant/sku/detail",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"merchant",
+										"sku",
+										"detail"
+									]
+								},
+								"description": "获取组合商品的详情失败，商品被删除"
+							},
+							"response": []
+						},
+						{
+							"name": "updateDetailFail_GoodDeleted",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "2f465df7-942b-457e-869d-5bff416d4fd4",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"updateDetailFail_GoodDeleted\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.result.success).to.eql(false);",
+											"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+											"})"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "isBarcode",
+											"value": "Y",
+											"type": "text"
+										},
+										{
+											"key": "productCode",
+											"value": "BIANMA002",
+											"type": "text"
+										},
+										{
+											"key": "productName",
+											"value": "酸奶2",
+											"type": "text"
+										},
+										{
+											"key": "productBrandId",
+											"value": "76",
+											"type": "text"
+										},
+										{
+											"key": "productOriginIdList[0]",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "productOriginIdList[1]",
+											"value": "12",
+											"type": "text"
+										},
+										{
+											"key": "productOriginIdList[2]",
+											"value": "151",
+											"type": "text"
+										},
+										{
+											"key": "sku",
+											"value": "2L",
+											"type": "text"
+										},
+										{
+											"key": "productClassIdList[0]",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "productClassIdList[1]",
+											"value": "21",
+											"type": "text"
+										},
+										{
+											"key": "productClassIdList[2]",
+											"value": "238",
+											"type": "text"
+										},
+										{
+											"key": "productCategoryIdList[0]",
+											"value": "180",
+											"type": "text"
+										},
+										{
+											"key": "productPinyin",
+											"value": "SN",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "我该怎么描述你呢\\n这彼岸。。。#",
+											"type": "text"
+										},
+										{
+											"key": "isCombine",
+											"value": "N",
+											"type": "text"
+										},
+										{
+											"key": "saleUnit",
+											"value": "箱",
+											"type": "text"
+										},
+										{
+											"key": "salePrice",
+											"value": "6000",
+											"type": "text"
+										},
+										{
+											"key": "costPrice",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "minSalePrice",
+											"value": "5500",
+											"type": "text"
+										},
+										{
+											"key": "vipPrice",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "profit",
+											"value": "33.33",
+											"type": "text"
+										},
+										{
+											"key": "skuTitle",
+											"value": "杭州市 品牌1 酸奶 2L",
+											"type": "text"
+										},
+										{
+											"key": "mainImageUrl",
+											"value": "product/main/c2ebaaad8823bcb53aee5beb647afd86.jpg",
+											"type": "text"
+										},
+										{
+											"key": "skuBarcode",
+											"value": "xiugaibianma001",
+											"type": "text"
+										},
+										{
+											"key": "skuId",
+											"value": "86",
+											"type": "text"
+										},
+										{
+											"key": "skuVersion",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "productId",
+											"value": "96",
+											"type": "text"
+										},
+										{
+											"key": "productVersion",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}pc/product/merchant/sku/update",
+									"host": [
+										"{{URL}}pc"
+									],
+									"path": [
+										"product",
+										"merchant",
+										"sku",
+										"update"
+									]
+								},
+								"description": "更新已删除的商品"
+							},
+							"response": []
+						}
+					],
+					"description": "商户商品管理",
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "good_manage_store",
+					"item": [
+						{
+							"name": "shopkeeperLoginSuccessByCode",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"merchantLoginSuccess\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.data.merchantCode).to.eql(pm.environment.get(\"merchantCode\"));",
+											"});",
+											"",
+											"",
+											"",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=UTF-8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "username",
+											"value": "{{shopkeeper}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "text"
+										},
+										{
+											"key": "merchantCode",
+											"value": "{{merchantCode}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}admin/passport/login?",
+									"host": [
+										"{{URL}}admin"
+									],
+									"path": [
+										"passport",
+										"login"
+									]
+								},
+								"description": "店长成功登录"
+							},
+							"response": []
+						}
+					],
+					"description": "门店的商品管理",
+					"_postman_isSubFolder": true
+				}
+			],
+			"description": "商家中心",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7a2a4aa0-7b89-469e-9217-fc149e5f3ec5",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "a0cf2146-67e4-4ba3-83a9-6abc34d26332",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "菜单列表",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=UTF-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://gw3.ci.heyean.com/auth/menu/list",
+							"protocol": "http",
+							"host": [
+								"gw3",
+								"ci",
+								"heyean",
+								"com"
+							],
+							"path": [
+								"auth",
+								"menu",
+								"list"
+							]
+						},
+						"description": "获取PC商户后台当前用户可以看到的菜单列表"
+					},
+					"response": []
+				},
+				{
+					"name": "菜单列表",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=UTF-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://gw3.ci.heyean.com/auth/cashier/menu/list",
+							"protocol": "http",
+							"host": [
+								"gw3",
+								"ci",
+								"heyean",
+								"com"
+							],
+							"path": [
+								"auth",
+								"cashier",
+								"menu",
+								"list"
+							]
+						},
+						"description": "获取PC收银台当前用户可以看到的菜单列表"
+					},
+					"response": []
+				}
+			],
+			"description": "Folder for auth"
+		},
+		{
+			"name": "exception",
+			"item": [
+				{
+					"name": "checkException",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://gw3.ci.heyean.com/exception",
+							"protocol": "http",
+							"host": [
+								"gw3",
+								"ci",
+								"heyean",
+								"com"
+							],
+							"path": [
+								"exception"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Folder for exception"
+		},
+		{
+			"name": "sign",
+			"item": [
+				{
+					"name": "获取签约详情接口",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://gw3.ci.heyean.com/sign/detail?merchantId={{merchantId}}",
+							"protocol": "http",
+							"host": [
+								"gw3",
+								"ci",
+								"heyean",
+								"com"
+							],
+							"path": [
+								"sign",
+								"detail"
+							],
+							"query": [
+								{
+									"key": "merchantId",
+									"value": "{{merchantId}}"
+								}
+							]
+						},
+						"description": "只有两种状态，签约成功或驳回"
+					},
+					"response": []
+				}
+			],
+			"description": "Folder for sign"
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "商户创建接口",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"createMerchantSuccess\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.success).to.eql(true);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=UTF-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Cookie",
+								"value": "sessionId=s%3AKBoLwyOZH0NRDkO0aDAid-Oc4L-sCquE.48zun1JC5m6kQWj8t0my3kqHEJJbb7VD3uzVef%2FiTsU"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "merchantName",
+									"value": "瓦力的商户",
+									"type": "text"
+								},
+								{
+									"key": "userCode",
+									"value": "wali",
+									"type": "text"
+								},
+								{
+									"key": "loginPwd",
+									"value": "111111",
+									"type": "text"
+								},
+								{
+									"key": "provCityArea",
+									"value": "浙江省 杭州市 余杭区",
+									"type": "text"
+								},
+								{
+									"key": "contactPhone",
+									"value": "13738102644",
+									"type": "text"
+								},
+								{
+									"key": "oprPwd",
+									"value": "222222",
+									"type": "text"
+								},
+								{
+									"key": "userPhone",
+									"value": "18368133022",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://gw3.ci.heyean.com/pc/user/merchant/add",
+							"protocol": "http",
+							"host": [
+								"gw3",
+								"ci",
+								"heyean",
+								"com"
+							],
+							"path": [
+								"pc",
+								"user",
+								"merchant",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获取登录用户管辖门店列表",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://gw3.ci.heyean.com/user/store/list",
+							"protocol": "http",
+							"host": [
+								"gw3",
+								"ci",
+								"heyean",
+								"com"
+							],
+							"path": [
+								"user",
+								"store",
+								"list"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Folder for user"
+		},
+		{
+			"name": "index",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://gw3.ci.heyean.com/",
+					"protocol": "http",
+					"host": [
+						"gw3",
+						"ci",
+						"heyean",
+						"com"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "61fac1a6-13b9-4ac8-bef9-ce31976435a5",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "2eda38a4-8f19-4a37-9910-f47817b3e93e",
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Content-Type is present\", function () {",
+					"    pm.response.to.have.header(\"Content-Type\");",
+					"});",
+					"",
+					"pm.test(\"Status code is 200\", function () {",
+					"    pm.response.to.have.status(200);",
+					"});"
+				]
+			}
+		}
+	]
+}

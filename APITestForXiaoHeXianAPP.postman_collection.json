@@ -1,0 +1,2940 @@
+{
+	"info": {
+		"_postman_id": "642b3e71-c347-404d-a178-f05e7db3414c",
+		"name": "APITestForXiaoHeXianAPP",
+		"description": "小禾苗的API测试，APP端",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "UserManage",
+			"item": [
+				{
+					"name": "merchantLoginSuccess",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5ab53545-7c08-48c0-bf1a-0e81278847ed",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"merchantLoginSuccess\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.userCode).to.eql(pm.environment.get(\"username\"));",
+									"    ",
+									"    pm.environment.set(\"userId\", jsonData.data.userId);",
+									"    pm.environment.set(\"refreshToken\", jsonData.data.refreshToken);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=UTF-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "merchantCode",
+									"value": "{{merchantCode}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "text"
+								},
+								{
+									"key": "verifyCode",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}app/v1/passport/login",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"passport",
+								"login"
+							]
+						},
+						"description": "商户登录成功"
+					},
+					"response": []
+				},
+				{
+					"name": "getCountOfStoreSuccess",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "29b0e681-a30c-4fcd-aa67-9be6e1f9848b",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.assertNotEqual);",
+									"",
+									"pm.test(\"getCountOfStoreSuccess\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    ",
+									"    assertNotEqual(\"countOfStore\", jsonData.data, 0)",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{URL}}app/v1/user/store/count",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"user",
+								"store",
+								"count"
+							]
+						},
+						"description": "获取商户的门店数"
+					},
+					"response": []
+				},
+				{
+					"name": "getListOfStoreSuccess",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "07ed1603-f76a-46a6-ac97-d05468da707a",
+								"type": "text/javascript",
+								"exec": [
+									"",
+									"pm.test(\"getListOfStoreSuccess\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.success).to.eql(true);",
+									"    len = jsonData.data.length",
+									"    if(len >= 1 )",
+									"    {",
+									"        pm.environment.set(\"storeCode\", jsonData.data[len-1].storeCode);",
+									"    }",
+									"    ",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "query",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}app/v1/user/store/list",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"user",
+								"store",
+								"list"
+							]
+						},
+						"description": "获取门店列表"
+					},
+					"response": []
+				},
+				{
+					"name": "getTheListOfCashierSuccess",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ed297524-bde0-4ff8-80f9-27d5e9064dcd",
+								"type": "text/javascript",
+								"exec": [
+									"",
+									"pm.test(\"refreshAccessTokenSuccess\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.success).to.eql(true);",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=UTF-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{URL}}app/v1/user/cashier/list",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"user",
+								"cashier",
+								"list"
+							]
+						},
+						"description": "获取收银员列表"
+					},
+					"response": []
+				},
+				{
+					"name": "cashierLoginSuccess",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8be93aec-0d5c-48da-b2ff-fa6b46baaa52",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"cashierLoginSuccess\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.userCode).to.eql(pm.environment.get(\"shopkeeper\"));",
+									"    ",
+									"    pm.environment.set(\"userId\", jsonData.data.userId);",
+									"    pm.environment.set(\"refreshToken\", jsonData.data.refreshToken);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=UTF-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "merchantCode",
+									"value": "{{merchantCode}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "{{shopkeeper}}",
+									"type": "text"
+								},
+								{
+									"key": "verifyCode",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}app/v1/passport/login",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"passport",
+								"login"
+							]
+						},
+						"description": "收银员登录成功"
+					},
+					"response": []
+				},
+				{
+					"name": "userLogoutSuccess",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ba7fca9c-897b-4e63-a04e-ddba50708750",
+								"type": "text/javascript",
+								"exec": [
+									"",
+									"pm.test(\"refreshAccessTokenSuccess\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.success).to.eql(true);",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=UTF-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Cookie",
+								"value": "hsAccessToken=ffbSIK11cF%2FzV8GU9O69eDt2Y3KkVbt876iVviK1S9lv%2FK5deyJLlm8bL70fGTmt; hsSessionId=s%3AEOi_DOLhf8aUWV3-zQJgodqGWThWR15r.be86nrSs25YsJTMK5oFe8SRcLKbTsxu%2BUs4Wlw5ktvM"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{URL}}app/v1/passport/logout",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"passport",
+								"logout"
+							]
+						},
+						"description": "用户登出成功"
+					},
+					"response": []
+				},
+				{
+					"name": "getDetailOfUserFail_accessTokenFail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "50ab6904-9b7c-488e-8d6a-18bfae15ad9e",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"getDetailOfUserFail_accessTokenFail\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.errorCode).to.eql(\"ACCESS_TOKEN_INVALID\");",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=UTF-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{URL}}app/v1/user/fetch",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"user",
+								"fetch"
+							]
+						},
+						"description": "用户未登录"
+					},
+					"response": []
+				},
+				{
+					"name": "refreshAccessTokenSuccess",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6367f799-5ccc-42b0-a788-3ff2cc69e575",
+								"type": "text/javascript",
+								"exec": [
+									"",
+									"pm.test(\"refreshAccessTokenSuccess\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.success).to.eql(true);",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "refreshToken",
+									"value": "{{refreshToken}}",
+									"type": "text"
+								},
+								{
+									"key": "userId",
+									"value": "{{userId}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}app/v1/passport/refresh/token",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"passport",
+								"refresh",
+								"token"
+							]
+						},
+						"description": "刷新AccessToken成功"
+					},
+					"response": []
+				},
+				{
+					"name": "refreshAccessTokenFail_refreshTokenNull",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "90a2a56e-45d1-4a5c-bc2c-faa5e7211b09",
+								"type": "text/javascript",
+								"exec": [
+									"",
+									"pm.test(\"refreshAccessTokenFail_refreshTokenNull\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_EMPTY\");",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "refreshToken",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "userId",
+									"value": "{{userId}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}app/v1/passport/refresh/token",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"passport",
+								"refresh",
+								"token"
+							]
+						},
+						"description": "refreshToken为空"
+					},
+					"response": []
+				},
+				{
+					"name": "refreshAccessTokenFail_userIdNull",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "43603625-ca1e-45b3-ae17-7aa8d6e874e8",
+								"type": "text/javascript",
+								"exec": [
+									"",
+									"pm.test(\"refreshAccessTokenFail_userIdNull\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_EMPTY\");",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "refreshToken",
+									"value": "{{refreshToken}}",
+									"type": "text"
+								},
+								{
+									"key": "userId",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}app/v1/passport/refresh/token",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"passport",
+								"refresh",
+								"token"
+							]
+						},
+						"description": "userId为Null"
+					},
+					"response": []
+				},
+				{
+					"name": "getDetailOfUserSuccess",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7434688c-e2dd-4a9c-a718-c8a8dcd4f81b",
+								"type": "text/javascript",
+								"exec": [
+									"",
+									"pm.test(\"getDetailOfUserSuccess\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.success).to.eql(true);",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=UTF-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{URL}}app/v1/user/fetch",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"user",
+								"fetch"
+							]
+						},
+						"description": "获取用户详情成功"
+					},
+					"response": []
+				}
+			],
+			"description": "用户管理（用户登录、登录，刷新token，用户详情、获取门店列表、获取收银员列表）"
+		},
+		{
+			"name": "StockManage",
+			"item": [
+				{
+					"name": "merchantLoginSuccess",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5ab53545-7c08-48c0-bf1a-0e81278847ed",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"merchantLoginSuccess\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.userCode).to.eql(pm.environment.get(\"username\"));",
+									"    ",
+									"    pm.environment.set(\"userId\", jsonData.data.userId);",
+									"    pm.environment.set(\"refreshToken\", jsonData.data.refreshToken);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=UTF-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "merchantCode",
+									"value": "{{merchantCode}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "text"
+								},
+								{
+									"key": "verifyCode",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}app/v1/passport/login",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"passport",
+								"login"
+							]
+						},
+						"description": "商户登录成功"
+					},
+					"response": []
+				},
+				{
+					"name": "searchStockOfGoodsInStoreSuccess_byCatagory",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f9897c6a-608a-4479-bac3-555a87863c1e",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"searchStockOfGoodsInStoreSuccess_byCatagory\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.success).to.eql(true);",
+									"    pm.expect(jsonData.data.size).to.eql(20);",
+									"    ",
+									"    if(jsonData.data.totalCount > 0){",
+									"        pm.environment.set(\"shopSkuId\", jsonData.data.pageData[0].shopSkuId);",
+									"    }",
+									"    ",
+									"    ",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "pageNumber",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "pageSize",
+									"value": "20",
+									"type": "text"
+								},
+								{
+									"key": "productCategoryId",
+									"value": "224",
+									"type": "text"
+								},
+								{
+									"key": "search",
+									"value": "lala",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "barcode",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "storeCode",
+									"value": "{{storeCode}}",
+									"type": "text"
+								},
+								{
+									"key": "query",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}app/v1/product/stock/query",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"product",
+								"stock",
+								"query"
+							]
+						},
+						"description": "查询门店的商品库存成功"
+					},
+					"response": []
+				},
+				{
+					"name": "searchStockOfGoodsInStoreSuccess_byQuery",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f9897c6a-608a-4479-bac3-555a87863c1e",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"searchStockOfGoodsInStoreSuccess_byCatagory\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.success).to.eql(true);",
+									"    pm.expect(jsonData.data.size).to.eql(20);",
+									"    ",
+									"    if(jsonData.data.totalCount > 0){",
+									"        pm.environment.set(\"shopSkuId\", jsonData.data.pageData[0].shopSkuId);",
+									"    }",
+									"    ",
+									"    ",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "pageNumber",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "pageSize",
+									"value": "20",
+									"type": "text"
+								},
+								{
+									"key": "productCategoryId",
+									"value": "224",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "lala",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "barcode",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "storeCode",
+									"value": "{{storeCode}}",
+									"type": "text"
+								},
+								{
+									"key": "query",
+									"value": "bukeshanchu",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}app/v1/product/stock/query",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"product",
+								"stock",
+								"query"
+							]
+						},
+						"description": "查询门店的商品库存成功"
+					},
+					"response": []
+				},
+				{
+					"name": "searchStockOfGoodsInStoreFail_queryNull",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0e4653b3-9b00-423f-af5b-0c23f7fa4604",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"searchStockOfGoodFail_storeCodeNotExist\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "pageNumber",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "pageSize",
+									"value": "20",
+									"type": "text"
+								},
+								{
+									"key": "productCategoryId",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "query",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "storeCode",
+									"value": "{{storeCode}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}app/v1/product/stock/query",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"product",
+								"stock",
+								"query"
+							]
+						},
+						"description": "查询门店的商品库存失败，查询条件为空"
+					},
+					"response": []
+				},
+				{
+					"name": "searchStockOfGoodsInStoreFail_storeCodeNotExist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "99395f60-447e-4b78-88e8-fe60e0ba3ad5",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"searchStockOfGoodFail_storeCodeNotExist\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "pageNumber",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "pageSize",
+									"value": "20",
+									"type": "text"
+								},
+								{
+									"key": "productCategoryId",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "query",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "storeCode",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}app/v1/product/stock/query",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"product",
+								"stock",
+								"query"
+							]
+						},
+						"description": "查询门店的商品库存失败，storeCode不存在"
+					},
+					"response": []
+				},
+				{
+					"name": "searchStockOfGoodsInStoreFail_storeCodeNull",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "99395f60-447e-4b78-88e8-fe60e0ba3ad5",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"searchStockOfGoodFail_storeCodeNotExist\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "pageNumber",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "pageSize",
+									"value": "20",
+									"type": "text"
+								},
+								{
+									"key": "productCategoryId",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "query",
+									"value": "ll",
+									"type": "text"
+								},
+								{
+									"key": "storeCode",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}app/v1/product/stock/query",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"product",
+								"stock",
+								"query"
+							]
+						},
+						"description": "查询门店的商品库存失败，storeCode为空"
+					},
+					"response": []
+				},
+				{
+					"name": "getStockDetailOfTheGoodSuccess",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d43561d1-a3b6-4535-87e6-04cc71c70c94",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"getStockDetailOfTheGoodSuccess\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.success).to.eql(true);",
+									"    ",
+									"    pm.expect(jsonData.data.shopSkuId).to.eql(pm.environment.get(\"shopSkuId\"));",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "shopSkuId",
+									"value": "{{shopSkuId}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}app/v1/product/stock/detail",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"product",
+								"stock",
+								"detail"
+							]
+						},
+						"description": "查看一个商品的库存详情"
+					},
+					"response": []
+				},
+				{
+					"name": "getStockDetailOfTheGoodFail_shopSkuIdNull",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "67747992-9cff-4acf-8ea9-ade238e9f389",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"getStockDetailOfTheGoodFail_shopSkuIdNull\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+									"    ",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "shopSkuId",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}app/v1/product/stock/detail",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"product",
+								"stock",
+								"detail"
+							]
+						},
+						"description": "查看一个商品的库存详情失败，shopSkuId为空"
+					},
+					"response": []
+				},
+				{
+					"name": "getStockDetailOfTheGoodFail_shopSkuIdNotExist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "67747992-9cff-4acf-8ea9-ade238e9f389",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"getStockDetailOfTheGoodFail_shopSkuIdNull\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+									"    ",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "shopSkuId",
+									"value": "0",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}app/v1/product/stock/detail",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"product",
+								"stock",
+								"detail"
+							]
+						},
+						"description": "查看一个商品的库存详情失败，shopSkuId不存在"
+					},
+					"response": []
+				},
+				{
+					"name": "getStockDetailOfTheGoodFail_shopSkuIdDeleted",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "153f89eb-025f-44a6-a683-23e3654a5624",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"getStockDetailOfTheGoodFail_shopSkuIdNull\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.success).to.eql(false);",
+									"    ",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "shopSkuId",
+									"value": "125",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}app/v1/product/stock/detail",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"product",
+								"stock",
+								"detail"
+							]
+						},
+						"description": "查看一个商品的库存详情失败，商品删除"
+					},
+					"response": []
+				},
+				{
+					"name": "getStockDetailOfTheGoodOfAllStoreFail_skuIdNull",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "97eacf9b-7568-4770-8efa-aaa7bc169e57",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"getStockDetailOfTheGoodOfAllStoreFail_skuIdNull\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+									"    ",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "skuId",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}app/v1/product/stock/all",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"product",
+								"stock",
+								"all"
+							]
+						},
+						"description": "获取一个商品在所有门店的库存，失败，skuId为空"
+					},
+					"response": []
+				},
+				{
+					"name": "getStockDetailOfTheGoodOfAllStoreFail_skuIdNotExist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3e1c5591-35a6-4922-9de2-5c9f4fa685c4",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"getStockDetailOfTheGoodOfAllStoreFail_skuIdNotExist\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+									"    ",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "skuId",
+									"value": "0",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}app/v1/product/stock/all",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"product",
+								"stock",
+								"all"
+							]
+						},
+						"description": "获取一个商品在所有门店的库存，失败，skuId为空"
+					},
+					"response": []
+				},
+				{
+					"name": "getStockDetailOfTheGoodOfAllStoreFail_skuIdDeleted",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b22d24a5-1711-4e6d-9e8e-0c8653ba0970",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"getStockDetailOfTheGoodOfAllStoreFail_skuIdNull\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.success).to.eql(false);",
+									"    ",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "skuId",
+									"value": "83",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}app/v1/product/stock/all",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"product",
+								"stock",
+								"all"
+							]
+						},
+						"description": "获取一个商品在所有门店的库存，失败，商品删除"
+					},
+					"response": []
+				},
+				{
+					"name": "getStockDetailOfTheGoodOfAllStoreSuccess",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8db5e646-315b-4576-8121-56ff91340d54",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"getStockDetailOfTheGoodOfAllStoreSuccess\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.success).to.eql(true);",
+									"    ",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "skuId",
+									"value": "609",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}app/v1/product/stock/all",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"product",
+								"stock",
+								"all"
+							]
+						},
+						"description": "获取一个商品在所有门店的库存"
+					},
+					"response": []
+				}
+			],
+			"description": "库存管理"
+		},
+		{
+			"name": "ReceiptManageofStock",
+			"item": [
+				{
+					"name": "merchantLoginSuccess",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5ab53545-7c08-48c0-bf1a-0e81278847ed",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"merchantLoginSuccess\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.userCode).to.eql(pm.environment.get(\"username\"));",
+									"    ",
+									"    pm.environment.set(\"userId\", jsonData.data.userId);",
+									"    pm.environment.set(\"refreshToken\", jsonData.data.refreshToken);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=UTF-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "merchantCode",
+									"value": "{{merchantCode}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "text"
+								},
+								{
+									"key": "verifyCode",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}app/v1/passport/login",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"passport",
+								"login"
+							]
+						},
+						"description": "商户登录成功"
+					},
+					"response": []
+				},
+				{
+					"name": "getReceiptListFail_DateError",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3cef7e44-eb16-4f81-96c8-d7e558cbaeac",
+								"type": "text/javascript",
+								"exec": [
+									"",
+									"pm.test(\"getReceiptListFail_DateError\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "endDate",
+									"value": "2018-08-01",
+									"type": "text"
+								},
+								{
+									"key": "pageNumber",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "startDate",
+									"value": "2018-09-01",
+									"type": "text"
+								},
+								{
+									"key": "storeCode",
+									"value": "{{storeCode}}",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}app/v1/product/receipt/query",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"product",
+								"receipt",
+								"query"
+							]
+						},
+						"description": "获取全部门店的入库单失败，开始时间大于结束时间"
+					},
+					"response": []
+				},
+				{
+					"name": "getReceiptListFail_endDateNull",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8244bf0e-d5b8-4d63-a581-bac4ee68e106",
+								"type": "text/javascript",
+								"exec": [
+									"",
+									"pm.test(\"getReceiptListFail_endDateNull\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "endDate",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "pageNumber",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "startDate",
+									"value": "2018-09-01",
+									"type": "text"
+								},
+								{
+									"key": "storeCode",
+									"value": "{{storeCode}}",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}app/v1/product/receipt/query",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"product",
+								"receipt",
+								"query"
+							]
+						},
+						"description": "获取全部门店的入库单失败，结束时间为空"
+					},
+					"response": []
+				},
+				{
+					"name": "getReceiptListFail_startDateNull",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "40ac629e-34ee-4853-a3dc-356904186ce7",
+								"type": "text/javascript",
+								"exec": [
+									"",
+									"pm.test(\"getReceiptListFail_startDateNull\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "endDate",
+									"value": "2018-09-01",
+									"type": "text"
+								},
+								{
+									"key": "pageNumber",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "startDate",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "storeCode",
+									"value": "{{storeCode}}",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}app/v1/product/receipt/query",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"product",
+								"receipt",
+								"query"
+							]
+						},
+						"description": "获取全部门店的入库单失败，开始时间为空"
+					},
+					"response": []
+				},
+				{
+					"name": "getReceiptListSuccess_byStore",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d52ea0b1-e41d-4cce-9adb-4998372d8a5f",
+								"type": "text/javascript",
+								"exec": [
+									"",
+									"pm.test(\"refreshAccessTokenFail_userIdNull\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.success).to.eql(true);",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "endDate",
+									"value": "2018-08-27",
+									"type": "text"
+								},
+								{
+									"key": "pageNumber",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "startDate",
+									"value": "2018-08-01",
+									"type": "text"
+								},
+								{
+									"key": "storeCode",
+									"value": "{{storeCode}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}app/v1/product/receipt/query",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"product",
+								"receipt",
+								"query"
+							]
+						},
+						"description": "获取门店的入库单列表"
+					},
+					"response": []
+				},
+				{
+					"name": "getReceiptListSuccess_forAllStore",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "071f4a5e-4042-45b7-9a8c-fab23919708f",
+								"type": "text/javascript",
+								"exec": [
+									"",
+									"pm.test(\"refreshAccessTokenFail_userIdNull\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.success).to.eql(true);",
+									"    ",
+									"    if(jsonData.data.totalCount > 0){",
+									"        pm.environment.set(\"receiptId\", jsonData.data.pageData[0].receiptId);",
+									"        ",
+									"    }",
+									"    ",
+									"    ",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "endDate",
+									"value": "2018-08-27",
+									"type": "text"
+								},
+								{
+									"key": "pageNumber",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "startDate",
+									"value": "2018-08-01",
+									"type": "text"
+								},
+								{
+									"key": "storeCode",
+									"value": "{{storeCode}}",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}app/v1/product/receipt/query",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"product",
+								"receipt",
+								"query"
+							]
+						},
+						"description": "获取全部门店的入库单"
+					},
+					"response": []
+				},
+				{
+					"name": "getDetailOfReceiptFail_receiptIdNull",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5e0e171f-0537-4755-a34d-bcdacdd25bc2",
+								"type": "text/javascript",
+								"exec": [
+									"",
+									"pm.test(\"getDetailOfReceiptFail_receiptIdNull\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "receiptId",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}app/v1/product/receipt/detail",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"product",
+								"receipt",
+								"detail"
+							]
+						},
+						"description": "获取入库单详情失败，receiptId为空"
+					},
+					"response": []
+				},
+				{
+					"name": "getDetailOfReceiptSuccess",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "490e20f5-d7a0-4ac9-83ad-523c36b97f62",
+								"type": "text/javascript",
+								"exec": [
+									"",
+									"pm.test(\"getDetailOfReceiptSuccess\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.success).to.eql(true);",
+									"    ",
+									"    pm.expect(jsonData.data.receiptId).to.eql(pm.environment.get(\"receiptId\"));",
+									"});",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "receiptId",
+									"value": "{{receiptId}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}app/v1/product/receipt/detail",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"product",
+								"receipt",
+								"detail"
+							]
+						},
+						"description": "获取入库单详情成功"
+					},
+					"response": []
+				},
+				{
+					"name": "addReceiptOfStockFail_receiptNull",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "28d294b5-7b9c-4c17-aa95-d84639c27e79",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"addReceiptOfStockFail_receiptNull\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+									"    ",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "receiptLines",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "storeCode",
+									"value": "{{storeCode}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}app/v1/product/receipt/add",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"product",
+								"receipt",
+								"add"
+							]
+						},
+						"description": "商品入库失败，入库的内容为空"
+					},
+					"response": []
+				},
+				{
+					"name": "addReceiptOfStockFail_storeCodeNull",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "28d294b5-7b9c-4c17-aa95-d84639c27e79",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"addReceiptOfStockFail_receiptNull\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+									"    ",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "receiptLines",
+									"value": "[ { \"categoryName\": \"string\", \"memo\": \"string\", \"merchantCode\": \"string\", \"price\": 0, \"quantity\": 0, \"saleUnit\": \"string\", \"shopSkuId\": 0,\n\"skuTitle\": \"string\", \"storeCode\": \"string\", \"total\": 0 }]",
+									"type": "text"
+								},
+								{
+									"key": "storeCode",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}app/v1/product/receipt/add",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"product",
+								"receipt",
+								"add"
+							]
+						},
+						"description": "商品入库失败，storeCode为空"
+					},
+					"response": []
+				},
+				{
+					"name": "addReceiptOfStockFail_storeWithoutGood",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3b6dfcf3-0278-43db-a93f-1f910d524ce3",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"addReceiptOfStockFail_storeWithoutGood\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+									"    ",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "receiptLines",
+									"value": "[{\"shopSkuId\":197,\"quantity\":20,\"costPrice\":40000,\"costAmount\":800000}]",
+									"type": "text"
+								},
+								{
+									"key": "storeCode",
+									"value": "{{storeCode}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}app/v1/product/receipt/add",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"product",
+								"receipt",
+								"add"
+							]
+						},
+						"description": "商品入库失败，所选的商品不属于该门店"
+					},
+					"response": []
+				},
+				{
+					"name": "addReceiptOfStockFail_GoodDeleted",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3b6dfcf3-0278-43db-a93f-1f910d524ce3",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"addReceiptOfStockFail_storeWithoutGood\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+									"    ",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "receiptLines",
+									"value": "[{\"shopSkuId\":156,\"quantity\":20,\"costPrice\":40000,\"costAmount\":800000}]",
+									"type": "text"
+								},
+								{
+									"key": "storeCode",
+									"value": "{{storeCode}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}app/v1/product/receipt/add",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"product",
+								"receipt",
+								"add"
+							]
+						},
+						"description": "商品入库失败，所选的商品被删除"
+					},
+					"response": []
+				},
+				{
+					"name": "addReceiptOfStockFail_costprice0",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "28d294b5-7b9c-4c17-aa95-d84639c27e79",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"addReceiptOfStockFail_receiptNull\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+									"    ",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "receiptLines",
+									"value": "[{\"shopSkuId\":60718,\"quantity\": 0,\"costPrice\": 0,\"costAmount\":800000}]",
+									"type": "text"
+								},
+								{
+									"key": "storeCode",
+									"value": "{{storeCode}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}app/v1/product/receipt/add",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"product",
+								"receipt",
+								"add"
+							]
+						},
+						"description": "商品入库失败，成本价为0"
+					},
+					"response": []
+				},
+				{
+					"name": "updateStatusOfReceiptFail_idNUll",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "18e1a269-fe22-4c7e-bcf2-51412a4a7c95",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"updateStatusOfReceiptFail_idNUll\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+									"    ",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "receiptId",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}app/v1/product/receipt/complete",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"product",
+								"receipt",
+								"complete"
+							]
+						},
+						"description": "更新入库单状态失败，Id为空"
+					},
+					"response": []
+				},
+				{
+					"name": "updateStatusOfReceiptFail_idNotExist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1067a739-959d-4a24-b3a0-839638426cb7",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"updateStatusOfReceiptFail_idNotExist\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+									"    ",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "receiptId",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}app/v1/product/receipt/complete",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"product",
+								"receipt",
+								"complete"
+							]
+						},
+						"description": "更新入库单状态失败，Id不存在"
+					},
+					"response": []
+				}
+			],
+			"description": "入库管理"
+		},
+		{
+			"name": "OrderManage",
+			"item": [
+				{
+					"name": "merchantLoginSuccess",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5ab53545-7c08-48c0-bf1a-0e81278847ed",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"merchantLoginSuccess\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.userCode).to.eql(pm.environment.get(\"username\"));",
+									"    ",
+									"    pm.environment.set(\"userId\", jsonData.data.userId);",
+									"    pm.environment.set(\"refreshToken\", jsonData.data.refreshToken);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=UTF-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "merchantCode",
+									"value": "{{merchantCode}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "text"
+								},
+								{
+									"key": "verifyCode",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}app/v1/passport/login",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"passport",
+								"login"
+							]
+						},
+						"description": "商户登录成功"
+					},
+					"response": []
+				},
+				{
+					"name": "订单汇总单据",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "beginTime",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "cashierId",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "endTime",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "storeId",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}app/v1/order/bill",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"order",
+								"bill"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "首页订单金额汇总",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "beginTime",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "cashierId",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "endTime",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "storeId",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://gw3.ci.heyean.com/app/v1/order/amount/sum",
+							"protocol": "http",
+							"host": [
+								"gw3",
+								"ci",
+								"heyean",
+								"com"
+							],
+							"path": [
+								"app",
+								"v1",
+								"order",
+								"amount",
+								"sum"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "订单详情",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "orderNo",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}app/v1/order/detail",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"order",
+								"detail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "订单列表",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "endTime",
+									"value": "{{endTime}}",
+									"type": "text"
+								},
+								{
+									"key": "onlySeeSuc",
+									"value": "{{onlySeeSuc}}",
+									"type": "text"
+								},
+								{
+									"key": "pageNumber",
+									"value": "{{pageNumber}}",
+									"type": "text"
+								},
+								{
+									"key": "pageSize",
+									"value": "{{pageSize}}",
+									"type": "text"
+								},
+								{
+									"key": "query",
+									"value": "{{query}}",
+									"type": "text"
+								},
+								{
+									"key": "startTime",
+									"value": "{{startTime}}",
+									"type": "text"
+								},
+								{
+									"key": "storeId",
+									"value": "{{storeId}}",
+									"type": "text"
+								},
+								{
+									"key": "tradeType",
+									"value": "{{tradeType}}",
+									"type": "text"
+								},
+								{
+									"key": "userId",
+									"value": "{{userId}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}app/v1/order/list",
+							"host": [
+								"{{URL}}app"
+							],
+							"path": [
+								"v1",
+								"order",
+								"list"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "订单管理"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "61fac1a6-13b9-4ac8-bef9-ce31976435a5",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "2eda38a4-8f19-4a37-9910-f47817b3e93e",
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Content-Type is present\", function () {",
+					"    pm.response.to.have.header(\"Content-Type\");",
+					"});",
+					"",
+					"pm.test(\"Status code is 200\", function () {",
+					"    pm.response.to.have.status(200);",
+					"});"
+				]
+			}
+		}
+	]
+}
