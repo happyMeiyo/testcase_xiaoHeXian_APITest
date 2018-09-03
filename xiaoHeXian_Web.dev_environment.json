@@ -69,6 +69,15 @@
       "value": "y001",
       "key": "shopkeeper",
       "enabled": true
+    },
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "value": "http://gw3.ci.heyean.com/",
+      "key": "URL",
+      "enabled": true
     }
   ],
   "_postman_variable_scope": "environment",
