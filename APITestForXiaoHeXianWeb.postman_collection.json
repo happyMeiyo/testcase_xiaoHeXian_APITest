@@ -4063,13 +4063,14 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "3f8f7082-6b0b-4e01-8616-376acf674733",
+										"id": "5f2278de-4580-446a-b9ca-5eb89c481d06",
 										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"searchAllGoodSuccess\", function () {",
 											"    var jsonData = pm.response.json();",
 											"    pm.expect(jsonData.result.success).to.eql(true);",
-											"    pm.expect(jsonData.data.totalCount).to.eql(5);",
+											"    tests[\"Counts of goods is larger than 3\"] = jsonData.data.totalCount > 3;",
+											"    ",
 											"    pm.expect(jsonData.data.totalPage).to.eql(1);",
 											"    ",
 											"    var pageData = jsonData.data.pageData",
