@@ -985,7 +985,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "a7a20deb-e52b-4bca-b8fd-476c8cbec884",
+								"id": "1ca64b9e-ba1f-44dd-9f87-6a4996cfc018",
 								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"refundSuccess\", function () {",
@@ -998,6 +998,20 @@
 									"    ",
 									"});",
 									"",
+									" setTimeout(function(){",
+									"     postman.setNextRequest('refundFail_Repeat')    ",
+									" }, 10000);",
+									"",
+									""
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "23da08a7-2061-45f6-9a7a-5b3017da0188",
+								"type": "text/javascript",
+								"exec": [
 									""
 								]
 							}
@@ -1084,6 +1098,16 @@
 									"    pm.expect(jsonData.result.errorCode).to.eql('ORDER_STATUS_ERROR');",
 									"});",
 									"",
+									""
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2e23d45d-33ae-492f-8eb9-a98fa54c8275",
+								"type": "text/javascript",
+								"exec": [
 									""
 								]
 							}
@@ -1467,7 +1491,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "7dbd3d4e-56a9-4485-ac86-300ccd54b7f3",
+								"id": "9f920fc1-e3d8-422a-a38e-abc437780b22",
 								"type": "text/javascript",
 								"exec": [
 									"var uom = new Date(); ",
