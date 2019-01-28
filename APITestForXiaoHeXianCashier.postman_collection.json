@@ -2390,13 +2390,41 @@
 							"listen": "test",
 							"script": {
 								"id": "45c06ed5-ebc6-4470-80b6-77db2c7cbefd",
-								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"orderSummaryFail_Duration>7\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+									"    pm.expect(jsonData.result.errorCode).to.eql(\"Internal Server Error\");",
 									"});"
-								]
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "c7ebaa90-a1e5-42af-be88-09b3e9f7eba8",
+								"exec": [
+									"var uom = new Date(); ",
+									"",
+									"// console.log(uom.getMonth())",
+									"",
+									"uom.setMonth(uom.getMonth() - 6); ",
+									"uom.setDate(1);",
+									"",
+									"var startDate = uom.getFullYear() + \"-\" + uom.getMonth() + \"-\" + uom.getDate();",
+									"startDate = startDate + \" 00:00:00\"",
+									"",
+									"uom.setDate(28);",
+									"var endDate = uom.getFullYear() + \"-\" + uom.getMonth() + \"-\" + uom.getDate();",
+									"endDate = endDate + \" 23:59:59\"",
+									"",
+									"console.log(startDate);",
+									"console.log(endDate);",
+									"",
+									"pm.environment.set(\"startTime\", startDate);",
+									"pm.environment.set(\"endTime\", endDate);"
+								],
+								"type": "text/javascript"
 							}
 						}
 					],
@@ -2419,12 +2447,12 @@
 								},
 								{
 									"key": "endTime",
-									"value": "2018-10-01 00:00:00",
+									"value": "{{endTime}}",
 									"type": "text"
 								},
 								{
 									"key": "startTime",
-									"value": "2018-03-01 00:00:00",
+									"value": "{{startTime}}",
 									"type": "text"
 								},
 								{
@@ -2456,14 +2484,14 @@
 							"listen": "test",
 							"script": {
 								"id": "a791838b-1a1a-4377-8745-b7e63a9a3f89",
-								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"orderSummaryFail_startDate>endDate\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+									"    pm.expect(jsonData.result.errorCode).to.eql(\"Internal Server Error\");",
 									"    pm.expect(jsonData.result.errorMsg).to.eql(\"开始时间不能大于结束时间\");",
 									"});"
-								]
+								],
+								"type": "text/javascript"
 							}
 						}
 					],
@@ -2523,20 +2551,19 @@
 							"listen": "test",
 							"script": {
 								"id": "004f0bf5-f6dd-4937-9bc4-272c24cd818a",
-								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"orderSummaryFail_Duration>31\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+									"    pm.expect(jsonData.result.errorCode).to.eql(\"Internal Server Error\");",
 									"});"
-								]
+								],
+								"type": "text/javascript"
 							}
 						},
 						{
 							"listen": "prerequest",
 							"script": {
 								"id": "31c7c8cb-db3a-40ff-adfb-7b4f79e46a64",
-								"type": "text/javascript",
 								"exec": [
 									"var uom = new Date(); ",
 									"",
@@ -2558,7 +2585,8 @@
 									"",
 									"pm.environment.set(\"startTime\", startDate);",
 									"pm.environment.set(\"endTime\", endDate);"
-								]
+								],
+								"type": "text/javascript"
 							}
 						}
 					],
@@ -2775,7 +2803,7 @@
 								"exec": [
 									"pm.test(\"documentOforderSummaryFail_Duration>7\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+									"    pm.expect(jsonData.result.errorCode).to.eql(\"Internal Server Error\");",
 									"});"
 								],
 								"type": "text/javascript"
@@ -2853,14 +2881,14 @@
 							"listen": "test",
 							"script": {
 								"id": "a791838b-1a1a-4377-8745-b7e63a9a3f89",
-								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"orderSummaryFail_startDate>endDate\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+									"    pm.expect(jsonData.result.errorCode).to.eql(\"Internal Server Error\");",
 									"    pm.expect(jsonData.result.errorMsg).to.eql(\"开始时间不能大于结束时间\");",
 									"});"
-								]
+								],
+								"type": "text/javascript"
 							}
 						}
 					],
@@ -2919,20 +2947,19 @@
 							"listen": "test",
 							"script": {
 								"id": "004f0bf5-f6dd-4937-9bc4-272c24cd818a",
-								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"orderSummaryFail_Duration>31\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
+									"    pm.expect(jsonData.result.errorCode).to.eql(\"Internal Server Error\");",
 									"});"
-								]
+								],
+								"type": "text/javascript"
 							}
 						},
 						{
 							"listen": "prerequest",
 							"script": {
 								"id": "fa517373-1743-45c8-95f2-076feb26221c",
-								"type": "text/javascript",
 								"exec": [
 									"var uom = new Date(); ",
 									"",
@@ -2954,7 +2981,8 @@
 									"",
 									"pm.environment.set(\"startTime\", startDate);",
 									"pm.environment.set(\"endTime\", endDate);"
-								]
+								],
+								"type": "text/javascript"
 							}
 						}
 					],
