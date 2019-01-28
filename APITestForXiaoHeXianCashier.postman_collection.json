@@ -747,7 +747,7 @@
 								"exec": [
 									"pm.test(\"shopKeeperLoginSuccess_WithVIP\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.data.userCode).to.eql(pm.environment.get(\"shopkeeper\"));",
+									"    pm.expect(jsonData.data.userCode).to.eql('qingyu');",
 									"    ",
 									"    pm.environment.set(\"userId\", jsonData.data.userId);",
 									"    pm.environment.set(\"refreshToken\", jsonData.data.refreshToken);",
@@ -1600,7 +1600,7 @@
 							"urlencoded": [
 								{
 									"key": "operatePwd",
-									"value": "123456",
+									"value": "{{operatePwd}}",
 									"type": "text"
 								},
 								{
@@ -1704,7 +1704,7 @@
 							"urlencoded": [
 								{
 									"key": "operatePwd",
-									"value": "123456",
+									"value": "{{operatePwd}}",
 									"type": "text"
 								},
 								{
@@ -1764,7 +1764,6 @@
 							"listen": "test",
 							"script": {
 								"id": "2718f9f1-ac64-4074-ae95-afeda631d7f9",
-								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"refundFail_Repeat\", function () {",
 									"    var jsonData = pm.response.json();",
@@ -1773,17 +1772,18 @@
 									"});",
 									"",
 									""
-								]
+								],
+								"type": "text/javascript"
 							}
 						},
 						{
 							"listen": "prerequest",
 							"script": {
 								"id": "2e23d45d-33ae-492f-8eb9-a98fa54c8275",
-								"type": "text/javascript",
 								"exec": [
 									""
-								]
+								],
+								"type": "text/javascript"
 							}
 						}
 					],
@@ -1800,7 +1800,7 @@
 							"urlencoded": [
 								{
 									"key": "operatePwd",
-									"value": "111111",
+									"value": "{{operatePwd}}",
 									"type": "text"
 								},
 								{
@@ -1863,7 +1863,7 @@
 								"exec": [
 									"pm.test(\"shopKeeperLoginSuccess_WithVIP\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.data.userCode).to.eql(pm.environment.get(\"shopkeeper\"));",
+									"    pm.expect(jsonData.data.userCode).to.eql('qingyu');",
 									"    ",
 									"    pm.environment.set(\"userId\", jsonData.data.userId);",
 									"    pm.environment.set(\"refreshToken\", jsonData.data.refreshToken);",
@@ -2254,7 +2254,7 @@
 							"urlencoded": [
 								{
 									"key": "operatePwd",
-									"value": "123456",
+									"value": "{{operatePwd}}",
 									"type": "text"
 								},
 								{

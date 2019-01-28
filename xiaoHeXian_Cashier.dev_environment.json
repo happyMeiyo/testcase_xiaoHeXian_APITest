@@ -136,9 +136,16 @@
 			"key": "vipPayToken",
 			"value": "1150574975",
 			"enabled": true
+		},
+		{
+			"key": "operatePwd",
+			"value": "123456",
+			"type": "text",
+			"description": "",
+			"enabled": true
 		}
 	],
 	"_postman_variable_scope": "environment",
-	"_postman_exported_at": "2019-01-24T08:00:13.014Z",
-	"_postman_exported_using": "Postman/6.7.1"
+	"_postman_exported_at": "2019-01-28T03:37:18.832Z",
+	"_postman_exported_using": "Postman/6.7.2"
 }
