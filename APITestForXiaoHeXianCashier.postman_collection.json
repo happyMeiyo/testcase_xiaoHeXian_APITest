@@ -2466,14 +2466,14 @@
 							]
 						},
 						"url": {
-							"raw": "{{URL}}order/manager/amount/sum",
+							"raw": "{{URL}}order/manager/orderlist/summary",
 							"host": [
 								"{{URL}}order"
 							],
 							"path": [
 								"manager",
-								"amount",
-								"sum"
+								"orderlist",
+								"summary"
 							]
 						}
 					},
@@ -2533,14 +2533,14 @@
 							]
 						},
 						"url": {
-							"raw": "{{URL}}order/manager/amount/sum",
+							"raw": "{{URL}}order/manager/orderlist/summary",
 							"host": [
 								"{{URL}}order"
 							],
 							"path": [
 								"manager",
-								"amount",
-								"sum"
+								"orderlist",
+								"summary"
 							]
 						}
 					},
@@ -2616,14 +2616,14 @@
 							]
 						},
 						"url": {
-							"raw": "{{URL}}order/manager/amount/sum",
+							"raw": "{{URL}}order/manager/orderlist/summary",
 							"host": [
 								"{{URL}}order"
 							],
 							"path": [
 								"manager",
-								"amount",
-								"sum"
+								"orderlist",
+								"summary"
 							]
 						}
 					},
@@ -2636,21 +2636,20 @@
 							"listen": "test",
 							"script": {
 								"id": "64bc5277-e8e0-4dd0-9822-a480de61b895",
-								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"orderSummarySuccess_Duration<7\", function () {",
 									"    var jsonData = pm.response.json();",
 									"    pm.expect(jsonData.result.success).to.eql(true);",
 									"    ",
 									"});"
-								]
+								],
+								"type": "text/javascript"
 							}
 						},
 						{
 							"listen": "prerequest",
 							"script": {
 								"id": "9f920fc1-e3d8-422a-a38e-abc437780b22",
-								"type": "text/javascript",
 								"exec": [
 									"var uom = new Date(); ",
 									"",
@@ -2671,7 +2670,8 @@
 									"",
 									"pm.environment.set(\"startTime\", startDate);",
 									"pm.environment.set(\"endTime\", endDate);"
-								]
+								],
+								"type": "text/javascript"
 							}
 						}
 					],
@@ -2699,14 +2699,14 @@
 							]
 						},
 						"url": {
-							"raw": "{{URL}}order/manager/amount/sum",
+							"raw": "{{URL}}order/manager/orderlist/summary",
 							"host": [
 								"{{URL}}order"
 							],
 							"path": [
 								"manager",
-								"amount",
-								"sum"
+								"orderlist",
+								"summary"
 							]
 						}
 					},
@@ -2719,21 +2719,20 @@
 							"listen": "test",
 							"script": {
 								"id": "a766bb84-b30a-4778-a446-188a09472c02",
-								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"orderSumarySuccess_Duration<31\", function () {",
 									"    var jsonData = pm.response.json();",
 									"    pm.expect(jsonData.result.success).to.eql(true);",
 									"    ",
 									"});"
-								]
+								],
+								"type": "text/javascript"
 							}
 						},
 						{
 							"listen": "prerequest",
 							"script": {
 								"id": "365a2248-6236-41d5-98e5-720309817d1d",
-								"type": "text/javascript",
 								"exec": [
 									"var uom = new Date(); ",
 									"",
@@ -2754,7 +2753,8 @@
 									"",
 									"pm.environment.set(\"startTime\", startDate);",
 									"pm.environment.set(\"endTime\", endDate);"
-								]
+								],
+								"type": "text/javascript"
 							}
 						}
 					],
@@ -2782,14 +2782,14 @@
 							]
 						},
 						"url": {
-							"raw": "{{URL}}order/manager/amount/sum",
+							"raw": "{{URL}}order/manager/orderlist/summary",
 							"host": [
 								"{{URL}}order"
 							],
 							"path": [
 								"manager",
-								"amount",
-								"sum"
+								"orderlist",
+								"summary"
 							]
 						}
 					},
@@ -2805,7 +2805,7 @@
 								"exec": [
 									"pm.test(\"documentOforderSummaryFail_Duration>7\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.result.errorCode).to.eql(\"Internal Server Error\");",
+									"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
 									"});"
 								],
 								"type": "text/javascript"
@@ -2864,13 +2864,13 @@
 							]
 						},
 						"url": {
-							"raw": "{{URL}}order/manager/bill",
+							"raw": "{{URL}}order/manager/list",
 							"host": [
 								"{{URL}}order"
 							],
 							"path": [
 								"manager",
-								"bill"
+								"list"
 							]
 						}
 					},
@@ -2886,7 +2886,7 @@
 								"exec": [
 									"pm.test(\"orderSummaryFail_startDate>endDate\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.result.errorCode).to.eql(\"Internal Server Error\");",
+									"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
 									"    pm.expect(jsonData.result.errorMsg).to.eql(\"开始时间不能大于结束时间\");",
 									"});"
 								],
@@ -2930,13 +2930,13 @@
 							]
 						},
 						"url": {
-							"raw": "{{URL}}order/manager/bill",
+							"raw": "{{URL}}order/manager/list",
 							"host": [
 								"{{URL}}order"
 							],
 							"path": [
 								"manager",
-								"bill"
+								"list"
 							]
 						}
 					},
@@ -2952,7 +2952,7 @@
 								"exec": [
 									"pm.test(\"orderSummaryFail_Duration>31\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.result.errorCode).to.eql(\"Internal Server Error\");",
+									"    pm.expect(jsonData.result.errorCode).to.eql(\"PARAMETER_ERROR\");",
 									"});"
 								],
 								"type": "text/javascript"
@@ -3000,25 +3000,55 @@
 							"mode": "urlencoded",
 							"urlencoded": [
 								{
-									"key": "endTime",
-									"value": "{{endTime}}",
+									"key": "onlySeeSuc",
+									"value": "false",
+									"type": "text"
+								},
+								{
+									"key": "query",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "orderStatusListArray",
+									"value": "",
 									"type": "text"
 								},
 								{
 									"key": "startTime",
 									"value": "{{startTime}}",
 									"type": "text"
+								},
+								{
+									"key": "endTime",
+									"value": "{{endTime}}",
+									"type": "text"
+								},
+								{
+									"key": "tradeType",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "pageNumber",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "pageSize",
+									"value": "8",
+									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{URL}}order/manager/bill",
+							"raw": "{{URL}}order/manager/list",
 							"host": [
 								"{{URL}}order"
 							],
 							"path": [
 								"manager",
-								"bill"
+								"list"
 							]
 						}
 					},
