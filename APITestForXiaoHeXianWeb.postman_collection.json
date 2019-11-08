@@ -170,10 +170,6 @@
 								"value": "application/json"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{URL}}admin/passport/login?username={{username}}&password={{password}}&merchantCode=",
 							"host": [
@@ -230,10 +226,6 @@
 								"value": "application/json"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{URL}}admin/passport/login?username=&password={{password}}&merchantCode={{merchantCode}}",
 							"host": [
@@ -290,10 +282,6 @@
 								"value": "application/json"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{URL}}admin/passport/login?username={{username}}&password=&merchantCode={{merchantCode}}",
 							"host": [
@@ -351,10 +339,6 @@
 								"value": "application/json"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{URL}}admin/passport/login?username={{username}}&password=123456&merchantCode={{merchantCode}}",
 							"host": [
@@ -412,10 +396,6 @@
 								"value": "application/json"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{URL}}admin/passport/login?username=hs002&password={{password}}&merchantCode={{merchantCode}}",
 							"host": [
@@ -473,10 +453,6 @@
 								"value": "application/json"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{URL}}admin/passport/login?username={{username}}&password={{password}}&merchantCode=M000002",
 							"host": [
@@ -523,7 +499,10 @@
 								"disabled": true
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
 						"url": {
 							"raw": "http://gw3.ci.heyean.com/admin/passport/logout",
 							"protocol": "http",
@@ -876,7 +855,10 @@
 										"value": "application/x-www-form-urlencoded"
 									}
 								],
-								"body": {},
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
 								"url": {
 									"raw": "{{URL}}pc/product/brand/list",
 									"host": [
@@ -889,59 +871,6 @@
 									]
 								},
 								"description": "获取品牌列表"
-							},
-							"response": []
-						},
-						{
-							"name": "getBrandListCopy",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "ae8f4ed8-4e2e-40e7-951f-d661043c6f32",
-										"type": "text/javascript",
-										"exec": [
-											"pm.test(\"createBrandListSuccess\", function () {",
-											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.result.success).to.eql(true);",
-											"});"
-										]
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json;charset=UTF-8"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/x-www-form-urlencoded"
-									}
-								],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "brandName",
-											"value": "",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "{{URL}}pc/product/brand/select",
-									"host": [
-										"{{URL}}pc"
-									],
-									"path": [
-										"product",
-										"brand",
-										"select"
-									]
-								}
 							},
 							"response": []
 						},
@@ -1651,10 +1580,6 @@
 										"value": "application/json"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{URL}}pc/product/category/merchant/list",
 									"host": [
@@ -1772,10 +1697,6 @@
 										"value": "application/json"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{URL}}pc/product/category/merchant/list",
 									"host": [
@@ -2020,10 +1941,6 @@
 										"value": "application/json"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{URL}}pc/product/category/platform/select",
 									"host": [
@@ -4593,79 +4510,6 @@
 						}
 					],
 					"description": "商户商品管理",
-					"_postman_isSubFolder": true
-				},
-				{
-					"name": "good_manage_store",
-					"item": [
-						{
-							"name": "shopkeeperLoginSuccessByCode",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"type": "text/javascript",
-										"exec": [
-											"pm.test(\"merchantLoginSuccess\", function () {",
-											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.data.merchantCode).to.eql(pm.environment.get(\"merchantCode\"));",
-											"});",
-											"",
-											"",
-											"",
-											""
-										]
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json;charset=UTF-8"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/x-www-form-urlencoded"
-									}
-								],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "username",
-											"value": "{{shopkeeper}}",
-											"type": "text"
-										},
-										{
-											"key": "password",
-											"value": "{{password}}",
-											"type": "text"
-										},
-										{
-											"key": "merchantCode",
-											"value": "{{merchantCode}}",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "{{URL}}admin/passport/login?",
-									"host": [
-										"{{URL}}admin"
-									],
-									"path": [
-										"passport",
-										"login"
-									]
-								},
-								"description": "店长成功登录"
-							},
-							"response": []
-						}
-					],
-					"description": "门店的商品管理",
 					"_postman_isSubFolder": true
 				}
 			],
